@@ -1,3 +1,9 @@
+/**** This C++ program uses C++11 functionalities
+	Please compile using g++>=4.9 && with the flag -std=c++11
+	See 'compile-a1.sh' for readymade compile command
+****/
+
+
 #include <iostream>
 #include <string>
 #include <regex>
@@ -28,13 +34,46 @@ int process_coordinates(string input)
 	input = input.substr(1, input.length()-2);
 	cout<<input<<endl;
 
-	if (std::regex_match (input, std::regex("(([0-9])\\w*),(([0-9])\\w*),(([0-9])\\w*)") ))
+	try
 	{
-
+		if (regex_match (input, regex("[[:digit:]]+\\,[[:digit:]]+\\,[[:digit:]]+") ))
+			// regex comparison expression using ECMAScript syntax
+		{
+			cout<<"regex match!"<<endl;
+		}
+		else
+			throw FORMAT_ERROR;
 	}
-	else
-		throw FORMAT_ERROR;
-
+	catch(regex_error& e)
+	{
+		//extensive regex_error handling
+		if (e.code() == regex_constants::error_collate)
+			throw "The expression contained an invalid collating element name.";
+		//else if (e.code() == regex_constants::codeerror_ctype)
+			//throw "The expression contained an invalid character class name.";
+		else if (e.code() == regex_constants::error_escape)
+			throw "The expression contained an invalid escaped character, or a trailing escape.";
+		else if (e.code() == regex_constants::error_backref)
+			throw "The expression contained an invalid back reference.";
+		else if (e.code() == regex_constants::error_brack)
+			throw "The expression contained mismatched brackets ([ and ]).";
+		else if (e.code() == regex_constants::error_paren)
+			throw "The expression contained mismatched parentheses (( and )).";
+		else if (e.code() == regex_constants::error_brace)
+			throw "The expression contained mismatched braces ({ and }).";
+		else if (e.code() == regex_constants::error_badbrace)
+			throw "The expression contained an invalid range between braces ({ and }).";
+		else if (e.code() == regex_constants::error_range)
+			throw "The expression contained an invalid character range.";
+		else if (e.code() == regex_constants::error_space)
+			throw "There was insufficient memory to convert the expression into a finite state machine.";
+		else if (e.code() == regex_constants::error_badrepeat)
+			throw "The expression contained a repeat specifier (one of *?+{) that was not preceded by a valid regular expression.";
+		else if (e.code() == regex_constants::error_complexity)
+			throw "The complexity of an attempted match against a regular expression exceeded a pre-set level.";
+		else if (e.code() == regex_constants::error_stack)
+			throw "There was insufficient memory to determine whether the regular expression could match the specified character sequence.";
+	}
 	/*for (itf = input.begin(); itf != input.end(); ++itf)
 	{
 		if (*itf == ',')

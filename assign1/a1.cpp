@@ -12,11 +12,11 @@
 
 using namespace std;
 
-int process_coordinates(string input)
+int process_coordinates(string input, vector<string> *seglist)
 {
 	std::string::iterator itf = input.begin();
-	string x[3];
-	int flag=2;
+	//string x[3];
+	//int flag=2;
 
 	/* check that the string is not empty
 		and it starts with a '(' and ends with a ')'*/
@@ -44,14 +44,17 @@ int process_coordinates(string input)
 			//Split the regex complaint string along ',' character
 			stringstream temp(input);
 			string segment;
-			vector<string> seglist;
+			//vector<string> seglist;
 			while(getline(temp, segment, ','))
 			{
-   				seglist.push_back(segment);
+   				*seglist->push_back(segment);
 			}
-			for (vector<string>::const_iterator i = seglist.begin(); i != seglist.end(); ++i)
+			int j=0;
+			for (vector<string>::const_iterator i = *seglist->begin(); i != *seglist->end(); ++i, j++)
     			cout << *i << ' ';
     		cout<<endl;
+
+    		return 1;
 		}
 		else
 			throw FORMAT_ERROR;
@@ -86,19 +89,13 @@ int process_coordinates(string input)
 		else if (e.code() == regex_constants::error_stack)
 			throw "There was insufficient memory to determine whether the regular expression could match the specified character sequence.";
 	}
-	/*for (itf = input.begin(); itf != input.end(); ++itf)
-	{
-		if (*itf == ',')
-		{
-			
-		}
-	}*/
 }
 
 int main()
 {
 	int xs=0, ys=0, zs=0, xe=0, ye=0, ze=0;
 	string start, end;
+	vector<string> coord_start, coord_end;
 
 	try
 	{
@@ -107,10 +104,10 @@ int main()
 		getline(cin, start);
 		cout<<"Enter end coordinates in the format (x2,y2,z2): ";
 		getline(cin, end);
-		cout<<start<<endl<<end<<endl;
+		//cout<<start<<endl<<end<<endl;
 
-		process_coordinates(start);
-		process_coordinates(end);
+		process_coordinates(start, &coord_start);
+		process_coordinates(end, &coord_end);
 	}
 	catch(const char* msg)
 	{

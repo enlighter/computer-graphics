@@ -115,10 +115,50 @@ int draw_point(int point[]) //method to draw a voxel at the point passed
 {
 	fstream object_file;
 	object_file.open("a1.obj", ios :: out | ios :: app);
+
 	if(object_file.fail())
 	{
 		throw "Couldn't open object file at coordinates: " + int_array_to_string(point, COORDINATE_SYSTEM);
 	}
+	else
+	{
+		//vertex 1
+		object_file<<"v "<<point[0]-(float)(COORDINATE_SYSTEM/2)<<" "<<point[1]-(float)(COORDINATE_SYSTEM/2)<<" "<<point[2]+(float)(COORDINATE_SYSTEM/2)<<endl;
+		//vertex 2
+		object_file<<"v "<<point[0]+(float)(COORDINATE_SYSTEM/2)<<" "<<point[1]-(float)(COORDINATE_SYSTEM/2)<<" "<<point[2]+(float)(COORDINATE_SYSTEM/2)<<endl;
+		//vertex 3
+		object_file<<"v "<<point[0]+(float)(COORDINATE_SYSTEM/2)<<" "<<point[1]+(float)(COORDINATE_SYSTEM/2)<<" "<<point[2]+(float)(COORDINATE_SYSTEM/2)<<endl;
+		//vertex 4
+		object_file<<"v "<<point[0]-(float)(COORDINATE_SYSTEM/2)<<" "<<point[1]+(float)(COORDINATE_SYSTEM/2)<<" "<<point[2]+(float)(COORDINATE_SYSTEM/2)<<endl;
+		//vertex 5
+		object_file<<"v "<<point[0]+(float)(COORDINATE_SYSTEM/2)<<" "<<point[1]+(float)(COORDINATE_SYSTEM/2)<<" "<<point[2]-(float)(COORDINATE_SYSTEM/2)<<endl;
+		//vertex 6
+		object_file<<"v "<<point[0]+(float)(COORDINATE_SYSTEM/2)<<" "<<point[1]-(float)(COORDINATE_SYSTEM/2)<<" "<<point[2]-(float)(COORDINATE_SYSTEM/2)<<endl;
+		//vertex 7
+		object_file<<"v "<<point[0]-(float)(COORDINATE_SYSTEM/2)<<" "<<point[1]-(float)(COORDINATE_SYSTEM/2)<<" "<<point[2]-(float)(COORDINATE_SYSTEM/2)<<endl;
+		//vertex 8
+		object_file<<"v "<<point[0]-(float)(COORDINATE_SYSTEM/2)<<" "<<point[1]+(float)(COORDINATE_SYSTEM/2)<<" "<<point[2]-(float)(COORDINATE_SYSTEM/2)<<endl;
+		//separator
+		object_file<<endl;
+		//face 1
+		object_file<<"f 1 2 3 4"<<endl;
+		//face 2
+		object_file<<"f 5 6 7 8"<<endl;
+		//face 3
+		object_file<<"f 2 6 5 3"<<endl;
+		//face 4
+		object_file<<"f 1 4 8 7"<<endl;
+		//face 5
+		object_file<<"f 1 7 6 2"<<endl;
+		//face 1
+		object_file<<"f 3 5 8 4"<<endl;
+		//separator
+		object_file<<endl;
+
+		cout<<"a voxel written"<<endl;
+	}
+
+	return 1;
 }
 
 int draw3Dline(int start[], int end[])
@@ -185,6 +225,8 @@ int main()
 
 		process_coordinates(start, start_point);
 		process_coordinates(end, end_point);
+
+		draw3Dline(start_point, end_point);
 	}
 	catch(const char* msg)
 	{

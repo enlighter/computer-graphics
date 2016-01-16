@@ -111,16 +111,16 @@ int process_coordinates(string input, int point[])
 
 }
 
-/*int draw_point(int point[]) //method to draw a voxel at the point passed
+int draw_point(int point[]) //method to draw a voxel at the point passed
 {
 	fstream object_file;
 	object_file.open("a1.obj", ios :: out | ios :: app);
-	if(file.fail())
+	if(object_file.fail())
 	{
-		throw ""
+		throw "Couldn't open object file at coordinates: " + int_array_to_string(point, COORDINATE_SYSTEM);
 	}
 }
-*/
+
 int draw3Dline(int start[], int end[])
 //3D DSS line drawing algorithm
 {

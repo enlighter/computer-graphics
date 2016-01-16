@@ -40,6 +40,18 @@ int process_coordinates(string input)
 			// regex comparison expression using ECMAScript syntax
 		{
 			cout<<"regex match!"<<endl;
+
+			//Split the regex complaint string along ',' character
+			stringstream temp(input);
+			string segment;
+			vector<string> seglist;
+			while(getline(temp, segment, ','))
+			{
+   				seglist.push_back(segment);
+			}
+			for (vector<string>::const_iterator i = seglist.begin(); i != seglist.end(); ++i)
+    			cout << *i << ' ';
+    		cout<<endl;
 		}
 		else
 			throw FORMAT_ERROR;

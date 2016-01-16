@@ -12,11 +12,11 @@
 
 using namespace std;
 
-int process_coordinates(string input)
+int process_coordinates(string input, int *point)
 {
 	std::string::iterator itf = input.begin();
-	string x[3];
-	int flag=2;
+	//int point[3];
+	//int flag=2;
 
 	/* check that the string is not empty
 		and it starts with a '(' and ends with a ')'*/
@@ -49,9 +49,18 @@ int process_coordinates(string input)
 			{
    				seglist.push_back(segment);
 			}
-			for (vector<string>::const_iterator i = seglist.begin(); i != seglist.end(); ++i)
+			int j=0;
+			for (vector<string>::const_iterator i = seglist.begin(); i != seglist.end(); ++i, j++)
+			{
     			cout << *i << ' ';
+    			point[j] = std::stoi(*i, NULL, 10); //convert to integer value
+			}
     		cout<<endl;
+
+    		for(j=0; j<3; j++)
+    			cout<<point[j]<<" ";
+
+    		return 1;
 		}
 		else
 			throw FORMAT_ERROR;
@@ -86,19 +95,14 @@ int process_coordinates(string input)
 		else if (e.code() == regex_constants::error_stack)
 			throw "There was insufficient memory to determine whether the regular expression could match the specified character sequence.";
 	}
-	/*for (itf = input.begin(); itf != input.end(); ++itf)
-	{
-		if (*itf == ',')
-		{
-			
-		}
-	}*/
+
 }
 
 int main()
 {
 	int xs=0, ys=0, zs=0, xe=0, ye=0, ze=0;
 	string start, end;
+	int start_point[3], end_point[3];
 
 	try
 	{
@@ -109,8 +113,8 @@ int main()
 		getline(cin, end);
 		cout<<start<<endl<<end<<endl;
 
-		process_coordinates(start);
-		process_coordinates(end);
+		process_coordinates(start, start_point);
+		process_coordinates(end, end_point);
 	}
 	catch(const char* msg)
 	{

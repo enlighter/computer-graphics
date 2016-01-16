@@ -3,19 +3,29 @@
 	See 'compile-a1.sh' for readymade compile command
 ****/
 
-
 #include <iostream>
 #include <string>
 #include <regex>
+#include <fstream>
 
 #define FORMAT_ERROR "Please maintain proper format!"
+#define CUBE_SIZE	1
+#define COORDINATE_SYSTEM	3 //3d coordinate system used here
 
 using namespace std;
 
 /*** 3D coordinates represented as 3 length integer array
 with x= a[0], y= a[1] & z= a[2] ***/
 
-int process_coordinates(string input, int *point)
+string int_array_to_string(int int_array[], int size_of_array)
+{
+  string returnstring = "";
+  for (int temp = 0; temp < size_of_array; temp++)
+    returnstring += to_string(int_array[temp]);
+  return returnstring;
+}
+
+int process_coordinates(string input, int point[])
 {
 	std::string::iterator itf = input.begin();
 	//int point[3];
@@ -60,7 +70,7 @@ int process_coordinates(string input, int *point)
 			}
     		cout<<endl;
 
-    		for(j=0; j<3; j++)
+    		for(j=0; j<COORDINATE_SYSTEM; j++)
     			cout<<point[j]<<" ";
 
     		return 1;
@@ -101,20 +111,29 @@ int process_coordinates(string input, int *point)
 
 }
 
-
-int draw3Dline(int *start, int *end)
+/*int draw_point(int point[]) //method to draw a voxel at the point passed
+{
+	fstream object_file;
+	object_file.open("a1.obj", ios :: out | ios :: app);
+	if(file.fail())
+	{
+		throw ""
+	}
+}
+*/
+int draw3Dline(int start[], int end[])
 //3D DSS line drawing algorithm
 {
 	int x_gradient = end[0]-start[0], y_gradient = end[1]-start[1], z_gradient = end[2]-start[2];
 	int f_xy = 2*y_gradient - x_gradient, f_xz = 2*z_gradient - x_gradient;
-	int current_point[3], j=0;
+	int current_point[COORDINATE_SYSTEM], j=0;
 
 	try
 	{
-		for(j=0; j<3; j++) //initialize to the start point
+		for(j=0; j<COORDINATE_SYSTEM; j++) //initialize to the start point
 			current_point[j] = start[j];
 
-		select(current_point);
+		draw_point(current_point);
 
 		while(current_point[0] < end[0])
 		//0th position is the x-coordinate
@@ -137,11 +156,14 @@ int draw3Dline(int *start, int *end)
 			else
 				f_xy += 2*z_gradient;
 
-			select(current_point);
+			draw_point(current_point);
 		}
 	}
 	catch(const char* msg)
-		throw msg;
+	{
+		cerr<<msg<<endl;
+		throw "forwarded...";
+	}
 
 	return 1;
 }
@@ -150,7 +172,7 @@ int main()
 {
 	//int xs=0, ys=0, zs=0, xe=0, ye=0, ze=0;
 	string start, end;
-	int start_point[3], end_point[3];
+	int start_point[COORDINATE_SYSTEM], end_point[COORDINATE_SYSTEM];
 
 	try
 	{

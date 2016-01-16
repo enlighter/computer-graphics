@@ -12,6 +12,9 @@
 
 using namespace std;
 
+/*** 3D coordinates represented as 3 length integer array
+with x= a[0], y= a[1] & z= a[2] ***/
+
 int process_coordinates(string input, int *point)
 {
 	std::string::iterator itf = input.begin();
@@ -98,9 +101,54 @@ int process_coordinates(string input, int *point)
 
 }
 
+
+int draw3Dline(int *start, int *end)
+//3D DSS line drawing algorithm
+{
+	int x_gradient = end[0]-start[0], y_gradient = end[1]-start[1], z_gradient = end[2]-start[2];
+	int f_xy = 2*y_gradient - x_gradient, f_xz = 2*z_gradient - x_gradient;
+	int current_point[3], j=0;
+
+	try
+	{
+		for(j=0; j<3; j++) //initialize to the start point
+			current_point[j] = start[j];
+
+		select(current_point);
+
+		while(current_point[0] < end[0])
+		//0th position is the x-coordinate
+		//x < xe
+		{
+			current_point[0]+=1; //x++
+			if(f_xy > 0)
+			{
+				current_point[1]+=1; //y++
+				f_xy += 2*(y_gradient - x_gradient);
+			}
+			else
+				f_xy += 2*y_gradient;
+
+			if(f_xz > 0)
+			{
+				current_point[2]+=1; //z++
+				f_xz += 2*(z_gradient - x_gradient);
+			}
+			else
+				f_xy += 2*z_gradient;
+
+			select(current_point);
+		}
+	}
+	catch(const char* msg)
+		throw msg;
+
+	return 1;
+}
+
 int main()
 {
-	int xs=0, ys=0, zs=0, xe=0, ye=0, ze=0;
+	//int xs=0, ys=0, zs=0, xe=0, ye=0, ze=0;
 	string start, end;
 	int start_point[3], end_point[3];
 

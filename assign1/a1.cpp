@@ -9,13 +9,15 @@
 #include <fstream>
 
 #define FORMAT_ERROR "Please maintain proper format!"
-#define CUBE_SIZE	1
+#define CUBE_SIZE	1 //cube size of a voxel
 #define COORDINATE_SYSTEM	3 //3d coordinate system used here
 
 using namespace std;
 
 /*** 3D coordinates represented as 3 length integer array
 with x= a[0], y= a[1] & z= a[2] ***/
+
+static int vertex_count = 1; //to keep track of vertex number for faces
 
 string int_array_to_string(int int_array[], int size_of_array)
 {
@@ -123,37 +125,39 @@ int draw_point(int point[]) //method to draw a voxel at the point passed
 	else
 	{
 		//vertex 1
-		object_file<<"v "<<point[0]-(float)(COORDINATE_SYSTEM/2)<<" "<<point[1]-(float)(COORDINATE_SYSTEM/2)<<" "<<point[2]+(float)(COORDINATE_SYSTEM/2)<<endl;
+		object_file<<"v "<<(float)point[0]-(CUBE_SIZE/(float)2)<<" "<<(float)point[1]-(CUBE_SIZE/(float)2)<<" "<<(float)point[2]+(CUBE_SIZE/(float)2)<<endl;
 		//vertex 2
-		object_file<<"v "<<point[0]+(float)(COORDINATE_SYSTEM/2)<<" "<<point[1]-(float)(COORDINATE_SYSTEM/2)<<" "<<point[2]+(float)(COORDINATE_SYSTEM/2)<<endl;
+		object_file<<"v "<<(float)point[0]+(CUBE_SIZE/(float)2)<<" "<<(float)point[1]-(CUBE_SIZE/(float)2)<<" "<<(float)point[2]+(CUBE_SIZE/(float)2)<<endl;
 		//vertex 3
-		object_file<<"v "<<point[0]+(float)(COORDINATE_SYSTEM/2)<<" "<<point[1]+(float)(COORDINATE_SYSTEM/2)<<" "<<point[2]+(float)(COORDINATE_SYSTEM/2)<<endl;
+		object_file<<"v "<<(float)point[0]+(CUBE_SIZE/(float)2)<<" "<<(float)point[1]+(CUBE_SIZE/(float)2)<<" "<<(float)point[2]+(CUBE_SIZE/(float)2)<<endl;
 		//vertex 4
-		object_file<<"v "<<point[0]-(float)(COORDINATE_SYSTEM/2)<<" "<<point[1]+(float)(COORDINATE_SYSTEM/2)<<" "<<point[2]+(float)(COORDINATE_SYSTEM/2)<<endl;
+		object_file<<"v "<<(float)point[0]-(CUBE_SIZE/(float)2)<<" "<<(float)point[1]+(CUBE_SIZE/(float)2)<<" "<<(float)point[2]+(CUBE_SIZE/(float)2)<<endl;
 		//vertex 5
-		object_file<<"v "<<point[0]+(float)(COORDINATE_SYSTEM/2)<<" "<<point[1]+(float)(COORDINATE_SYSTEM/2)<<" "<<point[2]-(float)(COORDINATE_SYSTEM/2)<<endl;
+		object_file<<"v "<<(float)point[0]+(CUBE_SIZE/(float)2)<<" "<<(float)point[1]+(CUBE_SIZE/(float)2)<<" "<<(float)point[2]-(CUBE_SIZE/(float)2)<<endl;
 		//vertex 6
-		object_file<<"v "<<point[0]+(float)(COORDINATE_SYSTEM/2)<<" "<<point[1]-(float)(COORDINATE_SYSTEM/2)<<" "<<point[2]-(float)(COORDINATE_SYSTEM/2)<<endl;
+		object_file<<"v "<<(float)point[0]+(CUBE_SIZE/(float)2)<<" "<<(float)point[1]-(CUBE_SIZE/(float)2)<<" "<<(float)point[2]-(CUBE_SIZE/(float)2)<<endl;
 		//vertex 7
-		object_file<<"v "<<point[0]-(float)(COORDINATE_SYSTEM/2)<<" "<<point[1]-(float)(COORDINATE_SYSTEM/2)<<" "<<point[2]-(float)(COORDINATE_SYSTEM/2)<<endl;
+		object_file<<"v "<<(float)point[0]-(CUBE_SIZE/(float)2)<<" "<<(float)point[1]-(CUBE_SIZE/(float)2)<<" "<<(float)point[2]-(CUBE_SIZE/(float)2)<<endl;
 		//vertex 8
-		object_file<<"v "<<point[0]-(float)(COORDINATE_SYSTEM/2)<<" "<<point[1]+(float)(COORDINATE_SYSTEM/2)<<" "<<point[2]-(float)(COORDINATE_SYSTEM/2)<<endl;
+		object_file<<"v "<<(float)point[0]-(CUBE_SIZE/(float)2)<<" "<<(float)point[1]+(CUBE_SIZE/(float)2)<<" "<<(float)point[2]-(CUBE_SIZE/(float)2)<<endl;
 		//separator
 		object_file<<endl;
 		//face 1
-		object_file<<"f 1 2 3 4"<<endl;
+		object_file<<"f "<<vertex_count<<" "<<vertex_count+1<<" "<<vertex_count+2<<" "<<vertex_count+3<<endl;
 		//face 2
-		object_file<<"f 5 6 7 8"<<endl;
+		object_file<<"f "<<vertex_count+4<<" "<<vertex_count+5<<" "<<vertex_count+6<<" "<<vertex_count+7<<endl;
 		//face 3
-		object_file<<"f 2 6 5 3"<<endl;
+		object_file<<"f "<<vertex_count+1<<" "<<vertex_count+5<<" "<<vertex_count+4<<" "<<vertex_count+2<<endl;
 		//face 4
-		object_file<<"f 1 4 8 7"<<endl;
+		object_file<<"f "<<vertex_count<<" "<<vertex_count+3<<" "<<vertex_count+7<<" "<<vertex_count+6<<endl;
 		//face 5
-		object_file<<"f 1 7 6 2"<<endl;
+		object_file<<"f "<<vertex_count<<" "<<vertex_count+6<<" "<<vertex_count+5<<" "<<vertex_count+1<<endl;
 		//face 1
-		object_file<<"f 3 5 8 4"<<endl;
+		object_file<<"f "<<vertex_count+2<<" "<<vertex_count+4<<" "<<vertex_count+7<<" "<<vertex_count+3<<endl;
 		//separator
 		object_file<<endl;
+
+		vertex_count += 8;
 
 		cout<<"a voxel written"<<endl;
 	}

@@ -6,5 +6,14 @@
  */
 
 
+#include <iostream>
 
+#include "Polygon2d.cpp"
+
+using namespace std;
+
+int main()
+{
+	return 1;
+}
 

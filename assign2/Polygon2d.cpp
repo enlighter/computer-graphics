@@ -28,7 +28,7 @@ Polygon2d::Polygon2d(std::vector<vertex> vertices,int size = 3)
 
 	for(std::vector<vertex>::iterator it=vertices.begin(); it != vertices.end(); ++it)
 	{
-		printf("x: %d, y: %d\n", *it->x, *it->y);
+		printf("x: %d, y: %d\n", it->x, it->y);
 
 	}
 
@@ -79,6 +79,7 @@ void Polygon2d::make_triangle(std::vector<vertex> vertices)
 	temp.y = third_vertex.y;
 	temp.l=  std::list<etlm> {}; //empty list
 	edge_table.push_back(temp);
+
 }
 
 Polygon2d::~Polygon2d() {

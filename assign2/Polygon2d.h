@@ -34,11 +34,13 @@ private:
 	typedef struct edge_table_header
 	{
 		int y;
-		std::list<etlm> *l;
+		std::list<etlm> l;
 	} eth;
 
 	//define the global edge table
 	std::vector<eth> edge_table;
+
+	void make_triangle(std::vector<vertex>);
 
 public:
 	Polygon2d(std::vector<vertex>, int);

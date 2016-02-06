@@ -14,7 +14,7 @@
 
 #define COORDINATE_SYSTEM	3 //3d coordinate system used here
 #define POLYGON_SIZE	3
- #define FORMAT_ERROR "Please maintain proper format!"
+#define FORMAT_ERROR "Please maintain proper format!"
 
 using namespace std;
 
@@ -108,6 +108,18 @@ int process_coordinates(string input, int point[])
 
 }
 
+int process_triangle_orientation(int v[][])
+{
+	int A=0, B=0, C=0; //for the plane of the triangle of the form Ax+By+Cz+D=0
+
+	//A = (y2-y1)(z3-z1) - (y3-y1)(z2-z1)
+	A = ((v[1][1] - v[0][1])*(v[2][2] - v[0][2])) - ((v[3][1] - v[0][1])*(v[1][2] - v[0][2]));
+
+	//B = (z2-z1)(x3-x1) - (z3-z1)(x2-x1)
+
+	//C = (x2-x1)(y3-y1) - (x3-x1)(y2-y1)
+}
+
 int main()
 {
 	string points[POLYGON_SIZE];
@@ -138,9 +150,7 @@ int main()
 			cout<<endl;
 		}
 		
-		//process_coordinates(end, end_point);
-
-		//draw3Dline(start_point, end_point);
+		process_triangle_orientation(vertices);
 	}
 	catch(const char* msg)
 	{

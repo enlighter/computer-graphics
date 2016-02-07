@@ -113,12 +113,20 @@ int process_triangle_orientation( int **vertexTrio )
 {
 	int A=0, B=0, C=0; //for the plane of the triangle of the form Ax+By+Cz+D=0
 
+	int *c1 = vertexTrio[0], *c2 = vertexTrio[1], *c3 = vertexTrio[2];
+	//c1 is first 3D coordinate and so on
+	int x=0, y=1, z=2; //array indexes for coords
+
 	//A = (y2-y1)(z3-z1) - (y3-y1)(z2-z1)
-	A = ((vertexTrio[1][1] - vertexTrio[0][1])*(vertexTrio[2][2] - vertexTrio[0][2])) - ((vertexTrio[3][1] - vertexTrio[0][1])*(vertexTrio[1][2] - vertexTrio[0][2]));
+	A = ((c2[y] - c1[y]) * (c3[z] - c1[z])) - ((c3[y] - c1[y]) * (c2[z] - c1[z]));
 
 	//B = (z2-z1)(x3-x1) - (z3-z1)(x2-x1)
+	B = ((c2[z] - c1[z]) * (c3[x] - c1[x])) - ((c3[z] - c1[z]) * (c2[x] - c1[x]));
 
 	//C = (x2-x1)(y3-y1) - (x3-x1)(y2-y1)
+	C = ((c2[x] - c1[x]) * (c3[y] - c1[y])) - ((c3[x] - c1[x]) * (c2[y] - c1[y]));
+
+	return 0;
 }
 
 int main()

@@ -13,6 +13,11 @@ namespace enl {
 
 class Polygon3d {
 public:
+	class vertex
+	{
+	public:
+		int x,y,z;
+	};
 	Polygon3d();
 	virtual ~Polygon3d();
 };

@@ -17,13 +17,6 @@ using namespace std;
 
 class Polygon2d {
 private:
-	class vertex
-	{
-	public:
-		int x,y;
-		//overload '<' operator for sorting using std::sort
-		bool operator<(const vertex &rhs) const { return y < rhs.y; }
-	};
 
 	typedef struct edge_table_list_member
 	{
@@ -40,11 +33,19 @@ private:
 	//define the global edge table
 	std::vector<eth> edge_table;
 
-	void make_triangle(std::vector<vertex>);
+	//void make_triangle(std::vector<vertex>);
 
 public:
+	class vertex
+	{
+		public:
+			int x,y;
+			//overload '<' operator for sorting using std::sort
+			bool operator<(const vertex &rhs) const { return y < rhs.y; }
+	};
 	Polygon2d(std::vector<vertex>, int);
 	virtual ~Polygon2d();
+	void make_triangle(std::vector<vertex>);
 };
 
 #endif /* POLYGON2D_H_ */

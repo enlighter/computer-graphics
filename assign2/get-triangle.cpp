@@ -128,23 +128,28 @@ enl::Polygon3d::vertex process_coordinates(string input)
 	//return 0;
 }
 
-int process_triangle_orientation( int **vertexTrio )
+int process_triangle_orientation( vector<enl::Polygon3d::vertex> vertexTrio )
 {
 	int S[3];//A=0, B=0, C=0; //for the plane of the triangle of the form Ax+By+Cz+D=0
 	// where S[0] = A, S[1]= B, S[2] = C
 
-	int *c1 = vertexTrio[0], *c2 = vertexTrio[1], *c3 = vertexTrio[2];
-	//c1 is first 3D coordinate and so on
-	int x=0, y=1, z=2; //array indexes for coords
+	enl::Polygon3d::vertex p1 = vertexTrio[0], p2 = vertexTrio[1], p3 = vertexTrio[2];
+	//p1 is first 3D coordinate and so on
+
+	//DEBUG
+	//cout<<p2.y;
 
 	//A = (y2-y1)(z3-z1) - (y3-y1)(z2-z1)
-	S[0] = ((c2[y] - c1[y]) * (c3[z] - c1[z])) - ((c3[y] - c1[y]) * (c2[z] - c1[z]));
+	S[0] = ((p2.y - p1.y) * (p3.z - p1.z)) - ((p3.y - p1.y) * (p2.z - p1.z));
 
 	//B = (z2-z1)(x3-x1) - (z3-z1)(x2-x1)
-	S[1] = ((c2[z] - c1[z]) * (c3[x] - c1[x])) - ((c3[z] - c1[z]) * (c2[x] - c1[x]));
+	S[1] = ((p2.z - p1.z) * (p3.x - p1.x)) - ((p3.z - p1.z) * (p2.x - p1.x));
 
 	//C = (x2-x1)(y3-y1) - (x3-x1)(y2-y1)
-	S[2] = ((c2[x] - c1[x]) * (c3[y] - c1[y])) - ((c3[x] - c1[x]) * (c2[y] - c1[y]));
+	S[2] = ((p2.x - p1.x) * (p3.y - p1.y)) - ((p3.x - p1.x) * (p2.y - p1.y));
+
+	//DEBUG
+	cout<<S[0]<<" "<<S[1]<<" "<<S[2]<<endl;
 
 	//which is max index in S?
 	int maxindex = 0, max = abs(S[0]), temp=0;
@@ -159,7 +164,10 @@ int process_triangle_orientation( int **vertexTrio )
 			maxindex = j;
 		}
 	}
-	maxindex ++;
+
+	//DEBUG
+	cout<<"maxindex = "<<maxindex<<", max = "<<max<<endl;
+	//maxindex ++;
 
 	/* If A (S[0]) is max in magnitude, then the y-z projection
 	 * 2D triangle will be the dominant one, and so on,
@@ -204,7 +212,7 @@ int main()
 			printf("x: %d, y: %d, z: %d\n", it->x, it->y, it->z);
 		}*/
 
-		//process_triangle_orientation(vertices);
+		process_triangle_orientation( vertices );
 	}
 	catch(const char* msg)
 	{

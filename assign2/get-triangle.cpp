@@ -136,6 +136,10 @@ int process_triangle_orientation( vector<enl::Polygon3d::vertex> vertexTrio )
 	enl::Polygon3d::vertex p1 = vertexTrio[0], p2 = vertexTrio[1], p3 = vertexTrio[2];
 	//p1 is first 3D coordinate and so on
 
+	vector<Polygon2d::vertex> projection; //the vector containing 2d triangle projection vertices
+	enl::Polygon3d::vertex select;
+	Polygon2d::vertex intermediary;
+
 	//DEBUG
 	//cout<<p2.y;
 
@@ -174,6 +178,48 @@ int process_triangle_orientation( vector<enl::Polygon3d::vertex> vertexTrio )
 	 * if B (S[1]) = max, x-z projection
 	 * if C (S[2]) = max, x-y projection
 	 */
+	for( temp=0; temp<3; temp++ )
+	{
+		//DEBUG
+		cout<<temp<<" :\n";
+
+		select = vertexTrio[temp];
+
+		if(maxindex == 0)
+			//projection on y-z plane
+		{
+			intermediary.x = select.y;
+			//DEBUG
+			cout<<intermediary.x<<" ";
+			intermediary.y = select.z;
+			//DEBUG
+			cout<<intermediary.y<<"\n";
+		}
+		else if(maxindex == 1)
+			//projection on x-z plane
+		{
+			intermediary.x = select.x;
+			//DEBUG
+			cout<<intermediary.x<<" ";
+			intermediary.y = select.z;
+			//DEBUG
+			cout<<intermediary.y<<"\n";
+		}
+		else if(maxindex == 2)
+			//projection on x-y plane
+		{
+			intermediary.x = select.x;
+			//DEBUG
+			cout<<intermediary.x<<" ";
+			intermediary.y = select.y;
+			//DEBUG
+			cout<<intermediary.y<<"\n";
+		}
+
+		projection.push_back(intermediary);
+	}
+
+	projection.shrink_to_fit();
 
 	return 0;
 }

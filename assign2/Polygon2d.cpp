@@ -80,6 +80,7 @@ void Polygon2d::make_triangle(std::vector<vertex> vertices)
 	temp.l=  std::list<etlm> {}; //empty list
 	edge_table.push_back(temp);
 
+	edge_table.shrink_to_fit();
 }
 
 Polygon2d::~Polygon2d() {

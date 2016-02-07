@@ -106,14 +106,15 @@ int process_coordinates(string input, int point[])
 			throw "There was insufficient memory to determine whether the regular expression could match the specified character sequence.";
 	}
 
+	return 0;
 }
 
-int process_triangle_orientation(int v[][])
+int process_triangle_orientation( int **vertexTrio )
 {
 	int A=0, B=0, C=0; //for the plane of the triangle of the form Ax+By+Cz+D=0
 
 	//A = (y2-y1)(z3-z1) - (y3-y1)(z2-z1)
-	A = ((v[1][1] - v[0][1])*(v[2][2] - v[0][2])) - ((v[3][1] - v[0][1])*(v[1][2] - v[0][2]));
+	A = ((vertexTrio[1][1] - vertexTrio[0][1])*(vertexTrio[2][2] - vertexTrio[0][2])) - ((vertexTrio[3][1] - vertexTrio[0][1])*(vertexTrio[1][2] - vertexTrio[0][2]));
 
 	//B = (z2-z1)(x3-x1) - (z3-z1)(x2-x1)
 
@@ -132,7 +133,7 @@ int main()
 
 		for(i=0; i<POLYGON_SIZE; i++)
 		{
-			cout<<"Enter vertex no. "<<i<<" coordinates in the format (x,y,z): ";
+			cout<<"Enter vertex no. "<<i+1<<" coordinates in the format (x,y,z): ";
 			getline(cin, points[i]);
 		}
 		
@@ -150,7 +151,7 @@ int main()
 			cout<<endl;
 		}
 		
-		process_triangle_orientation(vertices);
+		//process_triangle_orientation(vertices);
 	}
 	catch(const char* msg)
 	{

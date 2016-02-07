@@ -87,3 +87,15 @@ Polygon2d::~Polygon2d() {
 	// TODO Auto-generated destructor stub
 }
 
+void Polygon2d::print_edge_table()
+{
+	for(std::vector<eth>::iterator it=edge_table.begin(); it != edge_table.end(); ++it)
+	{
+		cout<<it->y<<"--> \n";
+		for(std::list<etlm>::iterator i = it->l.begin(); i != it->l.end(); ++i)
+		{
+			cout<<"\tx = "<<i->x<<", delta x = "<<i->delta_x<<", delta y = "<<i->delta_y<<"\n";
+		}
+	}
+}
+

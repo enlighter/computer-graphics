@@ -128,7 +128,7 @@ enl::Polygon3d::vertex process_coordinates(string input)
 	//return 0;
 }
 
-int process_triangle_orientation( vector<enl::Polygon3d::vertex> vertexTrio )
+int process_triangle( vector<enl::Polygon3d::vertex> vertexTrio )
 {
 	int S[3];//A=0, B=0, C=0; //for the plane of the triangle of the form Ax+By+Cz+D=0
 	// where S[0] = A, S[1]= B, S[2] = C
@@ -221,6 +221,9 @@ int process_triangle_orientation( vector<enl::Polygon3d::vertex> vertexTrio )
 
 	projection.shrink_to_fit();
 
+	Polygon2d projected_traingle{projection};
+	projected_traingle.print_edge_table();
+
 	return 0;
 }
 
@@ -258,7 +261,7 @@ int main()
 			printf("x: %d, y: %d, z: %d\n", it->x, it->y, it->z);
 		}*/
 
-		process_triangle_orientation( vertices );
+		process_triangle( vertices );
 	}
 	catch(const char* msg)
 	{

@@ -11,7 +11,8 @@
 
 #include "Polygon2d.h"
 
-using namespace std;
+//custom namespace efl
+namespace efl{
 
 Polygon2d::Polygon2d(std::vector<vertex> vertices,int size = 3)
 //takes the polygon vertices and size as parameter input
@@ -91,11 +92,12 @@ void Polygon2d::print_edge_table()
 {
 	for(std::vector<eth>::iterator it=edge_table.begin(); it != edge_table.end(); ++it)
 	{
-		cout<<it->y<<"--> \n";
+		std::cout<<it->y<<"--> \n";
 		for(std::list<etlm>::iterator i = it->l.begin(); i != it->l.end(); ++i)
 		{
-			cout<<"\tx = "<<i->x<<", delta x = "<<i->delta_x<<", delta y = "<<i->delta_y<<"\n";
+			std::cout<<"\tx = "<<i->x<<", delta x = "<<i->delta_x<<", delta y = "<<i->delta_y<<"\n";
 		}
 	}
 }
 
+}//namespace efl

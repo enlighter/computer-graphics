@@ -13,6 +13,9 @@
 
 //#define COORDINATE_SYSTEM	2
 
+//custom namespace efl
+namespace efl{
+
 using namespace std;
 
 class Polygon2d {
@@ -49,4 +52,5 @@ public:
 	void print_edge_table();
 };
 
+}//namespace efl
 #endif /* POLYGON2D_H_ */

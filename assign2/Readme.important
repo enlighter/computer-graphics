@@ -1,0 +1,4 @@
+This program is best compiled using gcc/g++ version >=4.8
+If compiling on gcc/g++ version < 5.2, compile using the flag
+-std=c++11
+e.g. g++ -std=c++11 get-triangle.cpp

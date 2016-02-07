@@ -17,11 +17,15 @@
 #define COORDINATE_SYSTEM	3 //3d coordinate system used here
 #define POLYGON_SIZE	3
 #define FORMAT_ERROR "Please maintain proper format!"
+#define X 0
+#define Y 1
+#define Z 2
 
 using namespace std;
 
-int process_coordinates(string input, int point[])
+enl::Polygon3d::vertex process_coordinates(string input)
 {
+	enl::Polygon3d::vertex point;
 	std::string::iterator itf = input.begin();
 	//int point[3];
 	//int flag=2;
@@ -58,13 +62,26 @@ int process_coordinates(string input, int point[])
 			{
    				seglist.push_back(segment);
 			}
-			int j=0;
-			for (vector<string>::const_iterator i = seglist.begin(); i != seglist.end(); ++i, j++)
+			/*int j=0;
+			for ( i != seglist.end(); ++i, j++)
 			{
-				//DEBUG
-    			//cout << *i << ' ';
+
     			point[j] = std::stoi(*i, NULL, 10); //convert to integer value
-			}
+			}*/
+
+			vector<string>::const_iterator i = seglist.begin();
+			//DEBUG
+			//cout << *i << ' ';
+			point.x = stoi(*i, NULL, 10);
+			++i;
+			//DEBUG
+			//cout << *i << ' ';
+			point.y = stoi(*i, NULL, 10);
+			++i;
+			//DEBUG
+			//cout << *i << ' ';
+			point.z = stoi(*i, NULL, 10);
+
     		cout<<endl;
 
     		//DEBUG
@@ -72,7 +89,7 @@ int process_coordinates(string input, int point[])
     			cout<<point[j]<<" ";
 			*/
 			
-    		return 1;
+    		return point;
 		}
 		else
 			throw FORMAT_ERROR;
@@ -108,7 +125,7 @@ int process_coordinates(string input, int point[])
 			throw "There was insufficient memory to determine whether the regular expression could match the specified character sequence.";
 	}
 
-	return 0;
+	//return 0;
 }
 
 int process_triangle_orientation( int **vertexTrio )
@@ -156,8 +173,9 @@ int process_triangle_orientation( int **vertexTrio )
 int main()
 {
 	string points[POLYGON_SIZE];
-	int vertices[POLYGON_SIZE][COORDINATE_SYSTEM];
-
+	//int vertices[POLYGON_SIZE][COORDINATE_SYSTEM];
+	vector<enl::Polygon3d::vertex> vertices;
+	enl::Polygon3d::vertex temp;
 	int i=0, j=0;
 
 	try
@@ -173,17 +191,19 @@ int main()
 		for(i=0; i<POLYGON_SIZE; i++)
 		{
 			//cout<<points[i]<<endl;
-			process_coordinates(points[i], vertices[i]);
-			cout<<"Received point : ";
-			for(j=0; j<COORDINATE_SYSTEM; j++)
-			{
-				cout<<vertices[i][j];
-				if(j<COORDINATE_SYSTEM-1)
-					cout<<",";
-			}
+			temp = process_coordinates(points[i]);
+			cout<<"Received point : "<<temp.x<<", "<<temp.y<<", "<<temp.z;
 			cout<<endl;
+			vertices.push_back(temp);
 		}
 		
+		vertices.shrink_to_fit();
+		//DEBUG
+		/*for(vector<enl::Polygon3d::vertex>::iterator it=vertices.begin(); it != vertices.end(); ++it)
+		{
+			printf("x: %d, y: %d, z: %d\n", it->x, it->y, it->z);
+		}*/
+
 		//process_triangle_orientation(vertices);
 	}
 	catch(const char* msg)

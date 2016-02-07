@@ -9,8 +9,10 @@
 #include <iostream>
 #include <string>
 #include <regex>
+#include <cmath> //std::abs
 
 #include "Polygon2d.cpp"
+#include "Polygon3d.cpp"
 
 #define COORDINATE_SYSTEM	3 //3d coordinate system used here
 #define POLYGON_SIZE	3
@@ -111,20 +113,42 @@ int process_coordinates(string input, int point[])
 
 int process_triangle_orientation( int **vertexTrio )
 {
-	int A=0, B=0, C=0; //for the plane of the triangle of the form Ax+By+Cz+D=0
+	int S[3];//A=0, B=0, C=0; //for the plane of the triangle of the form Ax+By+Cz+D=0
+	// where S[0] = A, S[1]= B, S[2] = C
 
 	int *c1 = vertexTrio[0], *c2 = vertexTrio[1], *c3 = vertexTrio[2];
 	//c1 is first 3D coordinate and so on
 	int x=0, y=1, z=2; //array indexes for coords
 
 	//A = (y2-y1)(z3-z1) - (y3-y1)(z2-z1)
-	A = ((c2[y] - c1[y]) * (c3[z] - c1[z])) - ((c3[y] - c1[y]) * (c2[z] - c1[z]));
+	S[0] = ((c2[y] - c1[y]) * (c3[z] - c1[z])) - ((c3[y] - c1[y]) * (c2[z] - c1[z]));
 
 	//B = (z2-z1)(x3-x1) - (z3-z1)(x2-x1)
-	B = ((c2[z] - c1[z]) * (c3[x] - c1[x])) - ((c3[z] - c1[z]) * (c2[x] - c1[x]));
+	S[1] = ((c2[z] - c1[z]) * (c3[x] - c1[x])) - ((c3[z] - c1[z]) * (c2[x] - c1[x]));
 
 	//C = (x2-x1)(y3-y1) - (x3-x1)(y2-y1)
-	C = ((c2[x] - c1[x]) * (c3[y] - c1[y])) - ((c3[x] - c1[x]) * (c2[y] - c1[y]));
+	S[2] = ((c2[x] - c1[x]) * (c3[y] - c1[y])) - ((c3[x] - c1[x]) * (c2[y] - c1[y]));
+
+	//which is max index in S?
+	int maxindex = 0, max = abs(S[0]), temp=0;
+
+	//find max
+	for(int j=0; j<3;j++)
+	{
+		temp = abs(S[j]);
+		if(max < temp)
+		{
+			max = temp;
+			maxindex = j;
+		}
+	}
+	maxindex ++;
+
+	/* If A (S[0]) is max in magnitude, then the y-z projection
+	 * 2D triangle will be the dominant one, and so on,
+	 * if B (S[1]) = max, x-z projection
+	 * if C (S[2]) = max, x-y projection
+	 */
 
 	return 0;
 }
@@ -133,6 +157,7 @@ int main()
 {
 	string points[POLYGON_SIZE];
 	int vertices[POLYGON_SIZE][COORDINATE_SYSTEM];
+
 	int i=0, j=0;
 
 	try

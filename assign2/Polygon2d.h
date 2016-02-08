@@ -44,7 +44,7 @@ private:
 	//define the global edge table
 	std::vector<eth> edge_table;
 
-	void make_triangle(std::vector<vertex>);
+	void make_edge_table(std::vector<vertex>);
 
 public:
 	Polygon2d(std::vector<vertex>, int);

@@ -35,12 +35,12 @@ Polygon2d::Polygon2d(std::vector<vertex> vertices,int size = 3)
 
 	if(size == 3)
 	{
-		this->make_triangle(vertices);
+		this->make_edge_table(vertices);
 	}
 
 }
 
-void Polygon2d::make_triangle(std::vector<vertex> vertices)
+void Polygon2d::make_edge_table(std::vector<vertex> vertices)
 {
 	vertex first_vertex=vertices.begin()[0], second_vertex=vertices.begin()[1], third_vertex=vertices.begin()[2];
 	std::list<etlm> elist;

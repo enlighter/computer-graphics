@@ -43,6 +43,11 @@ private:
 
 	//define the global edge table
 	std::vector<eth> edge_table;
+	//define the edge table at any instant after processing
+	std::vector<eth> current_edge_table;
+
+	//define set of points in the triangle filled till now
+	std::vector<vertex> filled;
 
 	void make_edge_table(std::vector<vertex>);
 
@@ -50,6 +55,7 @@ public:
 	Polygon2d(std::vector<vertex>, int);
 	virtual ~Polygon2d();
 	void print_edge_table();
+	void fill_triangle();
 };
 
 }//namespace efl

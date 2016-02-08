@@ -82,6 +82,8 @@ void Polygon2d::make_edge_table(std::vector<vertex> vertices)
 	edge_table.push_back(temp);
 
 	edge_table.shrink_to_fit();
+
+	current_edge_table = edge_table; //initialize current table
 }
 
 Polygon2d::~Polygon2d() {

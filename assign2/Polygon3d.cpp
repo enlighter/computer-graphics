@@ -112,7 +112,8 @@ void Polygon3d::make_triangle()
 	projection.shrink_to_fit();
 
 	efl::Polygon2d projected_traingle{projection};
-	projected_traingle.print_edge_table();
+	projected_traingle.get_edge_table();
+	projected_traingle.fill_triangle();
 }
 
 } /* namespace enl */

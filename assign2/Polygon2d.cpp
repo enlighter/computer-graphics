@@ -83,16 +83,16 @@ void Polygon2d::make_edge_table(std::vector<vertex> vertices)
 
 	edge_table.shrink_to_fit();
 
-	current_edge_table = edge_table; //initialize current table
+	//current_edge_table = edge_table; //initialize current table
 }
 
 Polygon2d::~Polygon2d() {
 	// TODO Auto-generated destructor stub
 }
 
-void Polygon2d::print_edge_table()
+void Polygon2d::print_edge_table(std::vector<eth> et)
 {
-	for(std::vector<eth>::iterator it=edge_table.begin(); it != edge_table.end(); ++it)
+	for(std::vector<eth>::iterator it=et.begin(); it != et.end(); ++it)
 	{
 		std::cout<<it->y<<"--> \n";
 		for(std::list<etlm>::iterator i = it->l.begin(); i != it->l.end(); ++i)
@@ -100,6 +100,18 @@ void Polygon2d::print_edge_table()
 			std::cout<<"\tx = "<<i->x<<", delta x = "<<i->delta_x<<", delta y = "<<i->delta_y<<"\n";
 		}
 	}
+}
+
+void Polygon2d::get_edge_table()
+{
+	this->print_edge_table(this->edge_table);
+}
+
+void Polygon2d::fill_triangle()
+{
+	this->current_edge_table.push_back( this->edge_table[0] ); //start sweeping from the lowest y
+	//DEBUG
+	print_edge_table(this->current_edge_table);
 }
 
 }//namespace efl

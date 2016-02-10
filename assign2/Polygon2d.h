@@ -50,11 +50,12 @@ private:
 	std::vector<vertex> filled;
 
 	void make_edge_table(std::vector<vertex>);
+	void print_edge_table(std::vector<eth>);
 
 public:
 	Polygon2d(std::vector<vertex>, int);
 	virtual ~Polygon2d();
-	void print_edge_table();
+	void get_edge_table();
 	void fill_triangle();
 };
 

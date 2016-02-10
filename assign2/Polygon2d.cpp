@@ -86,6 +86,37 @@ void Polygon2d::make_edge_table(std::vector<vertex> vertices)
 	//current_edge_table = edge_table; //initialize current table
 }
 
+void inline Polygon2d::process_unit(eth &header, etlm unit)
+{
+	if(!unit.delta_x) //delta x = 0
+	{
+		//if(!unit.delta_y)
+	}
+}
+
+void Polygon2d::init_edge_table(std::vector<vertex> vertices)
+{
+	std::vector<vertex>::iterator it;
+	vertex current, past;
+	etlm unit;
+	eth temp;
+	temp.y = 0; temp.l = std::list<etlm>{}; //clean slate eth
+	int vertices_processed = 0; //flag
+
+	for(it = vertices.begin(); it != vertices.end(); ++it, vertices_processed++)
+	{
+		current = *it;
+		temp.y = current.y;
+		if(!vertices_processed) //this is the first vertex being processed
+		{
+			unit.x = current.x;
+
+			unit.delta_x = it[1].x - current.x; //second_vertex.x - first_vertex.x;
+			unit.delta_y = it[1].y - current.y; //second_vertex.y - first_vertex.y;
+		}
+	}
+}
+
 Polygon2d::~Polygon2d() {
 	// TODO Auto-generated destructor stub
 }
@@ -102,7 +133,7 @@ void Polygon2d::print_edge_table(std::vector<eth> et)
 	}
 }
 
-void Polygon2d::get_edge_table()
+void inline Polygon2d::get_edge_table()
 {
 	this->print_edge_table(this->edge_table);
 }

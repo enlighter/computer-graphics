@@ -42,77 +42,77 @@ Polygon2d::Polygon2d(std::vector<vertex> vertices,int size = 3)
 
 void Polygon2d::make_edge_table(std::vector<vertex> vertices)
 {
-	vertex first_vertex=vertices.begin()[0], second_vertex=vertices.begin()[1], third_vertex=vertices.begin()[2];
-	std::list<etlm> elist;
+	//TODO
+	//handle the case where delta x = 0
 
-	eth temp;
-	temp.y = first_vertex.y;
-
-	etlm unit;
-	//insert first edge
-	unit.x = first_vertex.x;
-	unit.delta_x = second_vertex.x - first_vertex.x;
-	unit.delta_y = second_vertex.y - first_vertex.y;
-	elist.push_back(unit);
-
-	//insert second edge
-	unit.x = first_vertex.x;
-	unit.delta_x = third_vertex.x - first_vertex.x;
-	unit.delta_y = third_vertex.y - first_vertex.y;
-	elist.push_back(unit);
-
-	//copy this elist to first entry in edge table
-	temp.l = elist;
-	edge_table.push_back(temp);
-	elist.clear();
-
-	//increment y for edge_table
-	temp.y = second_vertex.y;
-	unit.x = second_vertex.x;
-	unit.delta_x = third_vertex.x - second_vertex.x;
-	unit.delta_y = third_vertex.y - second_vertex.y;
-	elist.push_back(unit);
-	temp.l = elist;
-	edge_table.push_back(temp);
-	elist.clear();
-
-	//increment y again
-	temp.y = third_vertex.y;
-	temp.l=  std::list<etlm> {}; //empty list
-	edge_table.push_back(temp);
-
-	edge_table.shrink_to_fit();
-
-	//current_edge_table = edge_table; //initialize current table
-}
-
-void inline Polygon2d::process_unit(eth &header, etlm unit)
-{
-	if(!unit.delta_x) //delta x = 0
-	{
-		//if(!unit.delta_y)
-	}
-}
-
-void Polygon2d::init_edge_table(std::vector<vertex> vertices)
-{
-	std::vector<vertex>::iterator it;
-	vertex current, past;
+	std::vector<etlm> elist;
 	etlm unit;
 	eth temp;
-	temp.y = 0; temp.l = std::list<etlm>{}; //clean slate eth
+	temp.y = 0; temp.l = std::vector<etlm>{}; //clean slate eth
 	int vertices_processed = 0; //flag
 
-	for(it = vertices.begin(); it != vertices.end(); ++it, vertices_processed++)
+	for(std::vector<vertex>::iterator it = vertices.begin(); it != vertices.end(); ++it, vertices_processed++)
 	{
-		current = *it;
-		temp.y = current.y;
+		//at this point temp still retains the value from previous iteration
+
 		if(!vertices_processed) //this is the first vertex being processed
 		{
-			unit.x = current.x;
+			unit.x = it->x;
 
-			unit.delta_x = it[1].x - current.x; //second_vertex.x - first_vertex.x;
-			unit.delta_y = it[1].y - current.y; //second_vertex.y - first_vertex.y;
+			for(int i=1; i<=2; i++)
+			{
+				unit.delta_x = it[i].x - it->x; //second_vertex.x or third_vertex.x - first_vertex.x;
+				unit.delta_y = it[i].y - it->y; //second_vertex.y or third_vertex.x - first_vertex.y;
+
+				//assume for now delta x is never 0
+				elist.push_back(unit);
+			}
+
+			//temp.y = *it->y;
+			//temp.l = elist;
+			//this->edge_table.push_back(temp);
+			//elist.clear();
+		}
+		else if(vertices_processed == 1) //this is the 2nd lowest y coordinate vertex being processed
+		{
+			unit.x = it->x;
+			//it is now already at vertices.begin()[1]
+			unit.delta_x = it[1].x - it->x; //third_vertex.x - second_vertex.x;
+			unit.delta_y = it[1].y - it->y; //third_vertex.x - second_vertex.y;
+
+			//at this point temp still retains the value from previous iteration
+			//check if this y is same as that of the lowest y coordinate vertex, which is the vertex in last iteration
+			if(it->y == temp.y)
+			{
+				this->edge_table[0].l.push_back(unit);
+				continue;
+			}
+			else
+			{
+				elist.push_back(unit);
+
+				//temp.y = *it->y;
+				//temp.l = elist;
+				//this->edge_table.push_back(temp);
+			}
+			//elist.clear();
+		}
+
+		temp.y = it->y;
+		if(!elist.empty())
+			temp.l = elist;
+		else
+			temp.l = std::vector<etlm>{};
+		this->edge_table.push_back(temp);
+		elist.clear();
+	}
+
+	//sort all edge_table etlm lists by 'x' asc
+	for(std::vector<eth>::iterator it=this->edge_table.begin(); it != this->edge_table.end(); ++it)
+	{
+		if(!it->l.empty())
+		{
+			std::sort(it->l.begin(), it->l.end());
 		}
 	}
 }
@@ -126,7 +126,7 @@ void Polygon2d::print_edge_table(std::vector<eth> et)
 	for(std::vector<eth>::iterator it=et.begin(); it != et.end(); ++it)
 	{
 		std::cout<<it->y<<"--> \n";
-		for(std::list<etlm>::iterator i = it->l.begin(); i != it->l.end(); ++i)
+		for(std::vector<etlm>::iterator i = it->l.begin(); i != it->l.end(); ++i)
 		{
 			std::cout<<"\tx = "<<i->x<<", delta x = "<<i->delta_x<<", delta y = "<<i->delta_y<<"\n";
 		}

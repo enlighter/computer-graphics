@@ -24,21 +24,24 @@ public:
 	{
 		public:
 			int x,y;
-			//overload '<' operator for sorting using std::sort
+			//overload '<' operator for sorting using std::sort ascending
 			bool operator<(const vertex &rhs) const { return y < rhs.y; }
 	};
+
 private:
 
-	typedef struct edge_table_list_member
+	class etlm
 	{
-		int x; //x coordinate
-		int delta_x, delta_y;
-	} etlm;
+		public:
+			int x, delta_x, delta_y;
+			//overload '<' operator for sorting using std::sort ascending
+			bool operator<(const etlm &rhs) const { return x < rhs.x; }
+	};
 
 	typedef struct edge_table_header
 	{
 		int y;
-		std::list<etlm> l;
+		std::vector<etlm> l;
 	} eth;
 
 	//define the global edge table
@@ -50,9 +53,8 @@ private:
 	std::vector<vertex> filled;
 
 	void make_edge_table(std::vector<vertex>);
-	void init_edge_table(std::vector<vertex>);
+	//void init_edge_table(std::vector<vertex>);
 	void print_edge_table(std::vector<eth>);
-	void inline process_unit(eth &, etlm);
 
 public:
 	Polygon2d(std::vector<vertex>, int);

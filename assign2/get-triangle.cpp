@@ -26,8 +26,6 @@ enl::Polygon3d::vertex process_coordinates(string input)
 {
 	enl::Polygon3d::vertex point;
 	std::string::iterator itf = input.begin();
-	//int point[3];
-	//int flag=2;
 
 	/* check that the string is not empty
 		and it starts with a '(' and ends with a ')'*/
@@ -61,12 +59,6 @@ enl::Polygon3d::vertex process_coordinates(string input)
 			{
    				seglist.push_back(segment);
 			}
-			/*int j=0;
-			for ( i != seglist.end(); ++i, j++)
-			{
-
-    			point[j] = std::stoi(*i, NULL, 10); //convert to integer value
-			}*/
 
 			vector<string>::const_iterator i = seglist.begin();
 			//DEBUG
@@ -124,7 +116,7 @@ enl::Polygon3d::vertex process_coordinates(string input)
 			throw "There was insufficient memory to determine whether the regular expression could match the specified character sequence.";
 	}
 
-	//return 0;
+	return enl::Polygon3d::vertex{};
 }
 
 int main()

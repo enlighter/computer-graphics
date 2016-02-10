@@ -7,6 +7,7 @@
 
 #include <stdexcept>
 #include <algorithm> //std::sort
+#include <limits> //for setting standard numeric types to max value
 #include <stdio.h> //printf
 
 #include "Polygon2d.h"
@@ -140,7 +141,13 @@ void inline Polygon2d::get_edge_table()
 
 void Polygon2d::fill_triangle()
 {
+	int next_checkpoint = std::numeric_limits<int>::max();
 	this->current_edge_table.push_back( this->edge_table[0] ); //start sweeping from the lowest y
+
+	if( !this->edge_table[1].l.empty() )
+	{
+		next_checkpoint = this->edge_table[1].y;
+	}
 	//DEBUG
 	print_edge_table(this->current_edge_table);
 }

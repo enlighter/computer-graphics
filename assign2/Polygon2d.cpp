@@ -143,7 +143,7 @@ void Polygon2d::fill_triangle()
 {
 	int next_checkpoint = std::numeric_limits<int>::max();
 	bool insert_mode = false;
-	int xcompare = std::numeric_limits<int>::max();
+	int xcompare = std::numeric_limits<int>::max(); //
 	this->current_edge_table = this->edge_table[0] ; //start sweeping from the lowest y
 
 	if( !this->edge_table[1].l.empty() )

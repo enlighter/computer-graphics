@@ -142,14 +142,33 @@ void inline Polygon2d::get_edge_table()
 void Polygon2d::fill_triangle()
 {
 	int next_checkpoint = std::numeric_limits<int>::max();
-	this->current_edge_table.push_back( this->edge_table[0] ); //start sweeping from the lowest y
+	bool insert_mode = false;
+	int xcompare = std::numeric_limits<int>::max();
+	this->current_edge_table = this->edge_table[0] ; //start sweeping from the lowest y
 
 	if( !this->edge_table[1].l.empty() )
 	{
 		next_checkpoint = this->edge_table[1].y;
 	}
 	//DEBUG
-	print_edge_table(this->current_edge_table);
+	print_edge_table(std::vector<eth> {this->current_edge_table} );
+
+	while( !(this->current_edge_table.l.empty())  )
+	{
+		if( this->current_edge_table.y == next_checkpoint)
+		{
+			insert_mode = true;
+		}
+
+		//traverse the whole current_table.l list
+		for(auto it = this->current_edge_table.l.begin(); it != this->current_edge_table.l.end(); ++it)
+		{
+
+		}
+
+		//iteration end conditions
+		this->current_edge_table.y += 1;
+	}
 }
 
 }//namespace efl

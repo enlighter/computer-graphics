@@ -149,6 +149,7 @@ void Polygon2d::fill_triangle()
 	if( !this->edge_table[1].l.empty() )
 	{
 		next_checkpoint = this->edge_table[1].y;
+
 	}
 	//DEBUG
 	print_edge_table(std::vector<eth> {this->current_edge_table} );

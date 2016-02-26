@@ -49,7 +49,7 @@ void Polygon2d::make_edge_table(std::vector<vertex> vertices)
 	std::vector<etlm> elist;
 	etlm unit;
 	eth temp;
-	temp.y = 0; temp.l = std::vector<etlm>{}; //clean slate eth
+	temp.y = 0; temp.l = {}; //clean slate eth
 	int vertices_processed = 0; //flag
 
 	for(auto it = vertices.begin(); it != vertices.end(); ++it, vertices_processed++)
@@ -103,7 +103,7 @@ void Polygon2d::make_edge_table(std::vector<vertex> vertices)
 		if(!elist.empty())
 			temp.l = elist;
 		else
-			temp.l = {}; //std::vector<etlm>{};
+			temp.l = {};
 		this->edge_table.push_back(temp);
 		elist.clear();
 	}
@@ -164,7 +164,7 @@ void Polygon2d::fill_triangle()
 		}
 
 		//DEBUG
-		cout<<"y="<<this->current_edge_table.y<<":";
+		std::cout<<"y="<<this->current_edge_table.y<<":";
 
 		//traverse the whole current_table.l list
 		for(auto it = this->current_edge_table.l.begin(); it != this->current_edge_table.l.end(); ++it)
@@ -176,7 +176,7 @@ void Polygon2d::fill_triangle()
 				continue;
 
 			//DEBUG
-			cout<<" "<<it->delta_y<<",";
+			std::cout<<" "<<it->delta_y<<",";
 
 
 			//decrease delta_y for all in l list for each while loop iteration

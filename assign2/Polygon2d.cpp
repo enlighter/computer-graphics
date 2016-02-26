@@ -144,23 +144,27 @@ void Polygon2d::fill_triangle()
 	int next_checkpoint = std::numeric_limits<int>::max();
 	int max_y = this->edge_table.back().y;
 	bool insert_mode = false;
-	int xcompare = std::numeric_limits<int>::max(); //
+	//int xcompare = std::numeric_limits<int>::max(); //
 	this->current_edge_table = this->edge_table[0] ; //start sweeping from the lowest y
 
 	if( !this->edge_table[1].l.empty() )
 	{
 		next_checkpoint = this->edge_table[1].y;
+		//xcompare = this->edge_table[1].l[1].x;
 
 	}
 	//DEBUG
 	print_edge_table(std::vector<eth> {this->current_edge_table} );
+	std::cout<<"next checkpoint = "<<next_checkpoint<<std::endl;
 
 
 	while( this->current_edge_table.y <= max_y  )
 	{
 		if( this->current_edge_table.y == next_checkpoint)
 		{
-			insert_mode = true;
+			//insert_mode = true;
+			this->current_edge_table.l.push_back( this->edge_table[1].l[1] );
+			std::sort(this->current_edge_table.l.begin(), this->current_edge_table.l.end());
 		}
 
 		//DEBUG
@@ -185,6 +189,7 @@ void Polygon2d::fill_triangle()
 
 		//iteration end conditions
 		this->current_edge_table.y += 1;
+		std::cout<<"\n";
 	}
 
 }

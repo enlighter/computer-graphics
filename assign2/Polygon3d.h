@@ -22,6 +22,8 @@ public:
 	{
 	public:
 		int x,y,z;
+		//overload < operator for it to be sorted along x ascending using std::sort
+		bool operator<(const vertex &rhs) const { return x < rhs.x; }
 	};
 	Polygon3d();
 	virtual ~Polygon3d();

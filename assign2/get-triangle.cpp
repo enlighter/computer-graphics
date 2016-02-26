@@ -123,7 +123,6 @@ int main()
 {
 	string points[POLYGON_SIZE];
 	enl::Polygon3d polfig;
-	//vector<enl::Polygon3d::vertex> vertices;
 	enl::Polygon3d::vertex temp;
 	int i=0, j=0;
 
@@ -147,11 +146,12 @@ int main()
 		}
 		
 		polfig.vertices.shrink_to_fit();
+		sort(polfig.vertices.begin(), polfig.vertices.end());
 		//DEBUG
-		/*for(vector<enl::Polygon3d::vertex>::iterator it=vertices.begin(); it != vertices.end(); ++it)
+		for(auto it=polfig.vertices.begin(); it != polfig.vertices.end(); ++it)
 		{
 			printf("x: %d, y: %d, z: %d\n", it->x, it->y, it->z);
-		}*/
+		}
 
 		polfig.make_triangle();
 	}

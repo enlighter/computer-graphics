@@ -41,7 +41,7 @@ private:
 	typedef struct edge_table_header
 	{
 		int y;
-		std::vector<etlm> l;
+		std::vector<etlm> l; //list of x, deltax and deltay for each edge
 	} eth;
 
 	//define the global edge table

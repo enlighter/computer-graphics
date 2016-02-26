@@ -164,7 +164,15 @@ void Polygon2d::fill_triangle()
 		//traverse the whole current_table.l list
 		for(auto it = this->current_edge_table.l.begin(); it != this->current_edge_table.l.end(); ++it)
 		{
+			//if delta_y is 0 then
+			//dynamically popping off elements from the vector l is complicated
+			//so just logically ignore all elements of l with non-positive delta_y value
+			if(it->delta_y < 1)
+				continue;
 
+
+			//decrease delta_y for all in l list for each while loop iteration
+			(it->delta_y)--;
 		}
 
 		//iteration end conditions

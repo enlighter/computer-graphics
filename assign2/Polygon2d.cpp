@@ -142,6 +142,7 @@ void inline Polygon2d::get_edge_table()
 void Polygon2d::fill_triangle()
 {
 	int next_checkpoint = std::numeric_limits<int>::max();
+	int max_y = this->edge_table.back().y;
 	bool insert_mode = false;
 	int xcompare = std::numeric_limits<int>::max(); //
 	this->current_edge_table = this->edge_table[0] ; //start sweeping from the lowest y
@@ -154,12 +155,16 @@ void Polygon2d::fill_triangle()
 	//DEBUG
 	print_edge_table(std::vector<eth> {this->current_edge_table} );
 
-	while( !(this->current_edge_table.l.empty())  )
+
+	while( this->current_edge_table.y <= max_y  )
 	{
 		if( this->current_edge_table.y == next_checkpoint)
 		{
 			insert_mode = true;
 		}
+
+		//DEBUG
+		cout<<"y="<<this->current_edge_table.y<<":";
 
 		//traverse the whole current_table.l list
 		for(auto it = this->current_edge_table.l.begin(); it != this->current_edge_table.l.end(); ++it)
@@ -170,6 +175,9 @@ void Polygon2d::fill_triangle()
 			if(it->delta_y < 1)
 				continue;
 
+			//DEBUG
+			cout<<" "<<it->delta_y<<",";
+
 
 			//decrease delta_y for all in l list for each while loop iteration
 			(it->delta_y)--;
@@ -178,6 +186,7 @@ void Polygon2d::fill_triangle()
 		//iteration end conditions
 		this->current_edge_table.y += 1;
 	}
+
 }
 
 }//namespace efl

@@ -1,0 +1,1 @@
+g++ -std=c++11 get-triangle.cpp -o get-triangle.out

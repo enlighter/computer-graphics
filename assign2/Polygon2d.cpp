@@ -28,7 +28,7 @@ Polygon2d::Polygon2d(std::vector<vertex> vertices,int size = 3)
 	//sort the vertices, default is sorting by 'y' asc
 	std::sort(vertices.begin(), vertices.end());
 
-	for(std::vector<vertex>::iterator it=vertices.begin(); it != vertices.end(); ++it)
+	for(auto it=vertices.begin(); it != vertices.end(); ++it)
 	{
 		printf("x: %d, y: %d\n", it->x, it->y);
 
@@ -52,7 +52,7 @@ void Polygon2d::make_edge_table(std::vector<vertex> vertices)
 	temp.y = 0; temp.l = std::vector<etlm>{}; //clean slate eth
 	int vertices_processed = 0; //flag
 
-	for(std::vector<vertex>::iterator it = vertices.begin(); it != vertices.end(); ++it, vertices_processed++)
+	for(auto it = vertices.begin(); it != vertices.end(); ++it, vertices_processed++)
 	{
 		//at this point temp still retains the value from previous iteration
 
@@ -103,13 +103,13 @@ void Polygon2d::make_edge_table(std::vector<vertex> vertices)
 		if(!elist.empty())
 			temp.l = elist;
 		else
-			temp.l = std::vector<etlm>{};
+			temp.l = {}; //std::vector<etlm>{};
 		this->edge_table.push_back(temp);
 		elist.clear();
 	}
 
 	//sort all edge_table etlm lists by 'x' asc
-	for(std::vector<eth>::iterator it=this->edge_table.begin(); it != this->edge_table.end(); ++it)
+	for(auto it=this->edge_table.begin(); it != this->edge_table.end(); ++it)
 	{
 		if(!it->l.empty())
 		{
@@ -124,10 +124,10 @@ Polygon2d::~Polygon2d() {
 
 void Polygon2d::print_edge_table(std::vector<eth> et)
 {
-	for(std::vector<eth>::iterator it=et.begin(); it != et.end(); ++it)
+	for(auto it=et.begin(); it != et.end(); ++it)
 	{
 		std::cout<<it->y<<"--> \n";
-		for(std::vector<etlm>::iterator i = it->l.begin(); i != it->l.end(); ++i)
+		for(auto i = it->l.begin(); i != it->l.end(); ++i)
 		{
 			std::cout<<"\tx = "<<i->x<<", delta x = "<<i->delta_x<<", delta y = "<<i->delta_y<<"\n";
 		}

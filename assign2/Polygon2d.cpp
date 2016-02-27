@@ -124,6 +124,7 @@ Polygon2d::~Polygon2d() {
 
 void Polygon2d::print_edge_table(std::vector<eth> et)
 {
+	std::cout<<std::endl<<"printing an edge table here :"<<std::endl;
 	for(auto it=et.begin(); it != et.end(); ++it)
 	{
 		std::cout<<it->y<<"--> \n";
@@ -163,7 +164,12 @@ void Polygon2d::fill_triangle()
 		if( this->current_edge_table.y == next_checkpoint)
 		{
 			//insert_mode = true;
-			this->current_edge_table.l.push_back( this->edge_table[1].l[1] );
+			//DEBUG
+			std::cout<<"Found checkpoint "<<next_checkpoint<<std::endl;
+			std::cout<<this->edge_table[1].y<<std::endl;
+			std::cout<<"Found new : "<<this->edge_table[1].l[0].x<<" "<<this->edge_table[1].l[0].delta_x<<" "<<this->edge_table[1].l[0].delta_y<<"\n";
+
+			this->current_edge_table.l.push_back( this->edge_table[1].l[0] );
 			std::sort(this->current_edge_table.l.begin(), this->current_edge_table.l.end());
 		}
 
@@ -180,7 +186,8 @@ void Polygon2d::fill_triangle()
 				continue;
 
 			//DEBUG
-			std::cout<<" "<<it->delta_y<<",";
+			std::cout<<"x = "<<it->x;
+			std::cout<<"deltaY = "<<it->delta_y<<",";
 
 
 			//decrease delta_y for all in l list for each while loop iteration

@@ -8,18 +8,20 @@
 #include <iostream>
 #include <string>
 #include <regex>
+#include <fstream> //file handling
 
 #include "Polygon3d.cpp"
 
 using namespace std;
 
-void process_filename(string name)
+void process_filename(string name, ifstream *data)
 {
 	try
 	{
 		if(regex_match (name, regex("(\\w+\\.*)*\\w+") ))
 		{
-
+			data->exceptions(ifstream::failbit | ifstream::badbit);
+			data->open(name);
 		}
 		else
 		{
@@ -56,6 +58,10 @@ void process_filename(string name)
 		else if (e.code() == regex_constants::error_stack)
 			throw "There was insufficient memory to determine whether the regular expression could match the specified character sequence.";
 		}
+		catch(ifstream::failure &e)
+		{
+			throw ("Error encountered opening/reading file" + string(e.what())).c_str();
+		}
 		catch (const char* msg)
 		{
 			throw msg;
@@ -64,14 +70,14 @@ void process_filename(string name)
 
 int main()
 {
-
 	string filename;
+	ifstream obj_file;
 
 	try
 		{
 			cout<<"Enter the filename {<name>.obj} for input obj file: ";
 			getline(cin, filename);
-			process_filename(filename);
+			process_filename(filename, &obj_file);
 
 			for(auto i=0; i<3; i++)
 			{

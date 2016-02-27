@@ -34,6 +34,7 @@ private:
 	{
 		public:
 			int x, delta_x, delta_y;
+			int n;
 			//overload '<' operator for sorting using std::sort ascending
 			bool operator<(const etlm &rhs) const { return x < rhs.x; }
 	};

@@ -108,12 +108,17 @@ void Polygon2d::make_edge_table(std::vector<vertex> vertices)
 		elist.clear();
 	}
 
-	//sort all edge_table etlm lists by 'x' asc
+	//sort all edge_table etlm lists by 'x' asc and init n=0
 	for(auto it=this->edge_table.begin(); it != this->edge_table.end(); ++it)
 	{
 		if(!it->l.empty())
 		{
 			std::sort(it->l.begin(), it->l.end());
+
+			for(auto i = it->l.begin(); i != it->l.end(); ++i)
+			{
+				i->n = 0;
+			}
 		}
 	}
 }
@@ -144,15 +149,12 @@ void Polygon2d::fill_triangle()
 {
 	int next_checkpoint = std::numeric_limits<int>::max();
 	int max_y = this->edge_table.back().y;
-	bool insert_mode = false;
-	//int xcompare = std::numeric_limits<int>::max(); //
+	//bool insert_mode = false;
 	this->current_edge_table = this->edge_table[0] ; //start sweeping from the lowest y
 
 	if( !this->edge_table[1].l.empty() )
 	{
 		next_checkpoint = this->edge_table[1].y;
-		//xcompare = this->edge_table[1].l[1].x;
-
 	}
 	//DEBUG
 	print_edge_table(std::vector<eth> {this->current_edge_table} );
@@ -186,7 +188,7 @@ void Polygon2d::fill_triangle()
 				continue;
 
 			//DEBUG
-			std::cout<<"x = "<<it->x;
+			std::cout<<"x = "<<it->x<<",";
 			std::cout<<"deltaY = "<<it->delta_y<<",";
 
 

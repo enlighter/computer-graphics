@@ -190,6 +190,7 @@ void Polygon2d::fill_triangle()
 			//DEBUG
 			std::cout<<"x = "<<it->x<<",";
 			std::cout<<"deltaY = "<<it->delta_y<<",";
+			std::cout<<"n = "<<it->n<<",";
 
 
 			//decrease delta_y for all in l list for each while loop iteration

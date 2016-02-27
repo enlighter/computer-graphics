@@ -20,7 +20,7 @@ void process_filename(string name, ifstream *data)
 	{
 		if(regex_match (name, regex("(\\w+\\.*)*\\w+") ))
 		{
-			data->exceptions(ifstream::failbit | ifstream::badbit);
+			//data->exceptions(ifstream::failbit | ifstream::badbit | ifstream::eofbit);
 			data->open(name);
 		}
 		else
@@ -58,20 +58,25 @@ void process_filename(string name, ifstream *data)
 		else if (e.code() == regex_constants::error_stack)
 			throw "There was insufficient memory to determine whether the regular expression could match the specified character sequence.";
 		}
-		catch(ifstream::failure &e)
+		/*catch(ifstream::failure &e)
 		{
 			throw ("Error encountered opening/reading file" + string(e.what())).c_str();
-		}
+		}*/
 		catch (const char* msg)
 		{
 			throw msg;
+		}
+		catch(exception &e)
+		{
+			throw e.what();
 		}
 }
 
 int main()
 {
-	string filename;
+	string filename, line;
 	ifstream obj_file;
+	char c;
 
 	try
 		{
@@ -79,17 +84,38 @@ int main()
 			getline(cin, filename);
 			process_filename(filename, &obj_file);
 
-			for(auto i=0; i<3; i++)
+			if(obj_file.is_open())
+			{
+				while(obj_file.get(c))//!obj_file.eof())
+				{
+					//obj_file.get(c);
+					cout<<c;
+				}
+			}
+			else
+			{
+				cout<<"Couldn't open the file.\n";
+				return 0;
+			}
+
+			/*for(auto i=0; i<3; i++)
 			{
 				cout<<"Enter vertex no. "<<i+1<<" coordinates in the format (x,y,z): ";
 				//getline(cin, points[i]);
 			}
+			*/
+
+			cout<<"end.\n";
 
 		}
 		catch(const char* msg)
 		{
 			cerr<<msg<<endl;
 			return 0;
+		}
+		catch(exception &e)
+		{
+			cerr<<e.what()<<endl;
 		}
 	return 1;
 }

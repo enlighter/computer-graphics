@@ -5,15 +5,20 @@
  *      Author: enlighter
  */
 
-#include <cmath> //std::abs
+#include <iostream>
 
 #include "Polygon3d.h"
 
 /* enl is my custom namespace */
 namespace enl {
 
-Polygon3d::Polygon3d() {
-	// TODO Auto-generated constructor stub
+Polygon3d::Polygon3d(int no_of_edges) {
+
+	if(no_of_edges < 3 || no_of_edges > 4)
+	{
+		std::cout<<"Polygon with "<<no_of_edges<<" not supported here.";
+		exit(0);
+	}
 
 }
 

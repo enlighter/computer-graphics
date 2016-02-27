@@ -30,12 +30,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ******************************************************************************/
 
-#include "simple_svg_1.0.0.hpp"
+#include "simple_svg.hpp"
 
 using namespace svg;
 
 // Demo page shows sample usage of the Simple SVG library.
 
+/*
 int main()
 {
     Dimensions dimensions(100, 100);
@@ -78,3 +79,4 @@ int main()
 
     doc.save();
 }
+*/

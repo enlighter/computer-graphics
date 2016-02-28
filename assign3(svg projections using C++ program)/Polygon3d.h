@@ -25,13 +25,20 @@ public:
 		//overload < operator for it to be sorted along x ascending using std::sort
 		bool operator<(const vertex &rhs) const { return x < rhs.x; }
 	};
+	class face
+	{
+	public:
+		std::vector<int> vertex_order;
+	};
 	Polygon3d();
 	//no of edges here can be 3 or 4
 	virtual ~Polygon3d();
 	void make_triangle();
 	void print_vertices();
+	void print_faces();
 
 	std::vector<vertex> vertices;
+	std::vector<face> faces;
 };
 
 } /* namespace enl */

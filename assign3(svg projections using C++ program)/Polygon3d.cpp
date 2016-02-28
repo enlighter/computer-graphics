@@ -29,4 +29,16 @@ void Polygon3d::print_vertices()
 	}
 }
 
+void Polygon3d::print_faces()
+{
+	for(auto it = this->faces.begin(); it != this->faces.end(); ++it)
+	{
+		for(auto i = it->vertex_order.begin(); i != it->vertex_order.end(); ++i)
+		{
+			std::cout<<*i<<"->";
+		}
+		std::cout<<std::endl;
+	}
+}
+
 } /* namespace enl */

@@ -12,11 +12,17 @@ namespace enl {
 
 class Viewport {
 private:
-	int height, width;
+	const int padding;
+	int width, length;
 	int start_x, start_y; //lies on X-Y plane
+	class imageplane : public Viewport
+	{
+
+	} imp;
 public:
 	Viewport();
 	virtual ~Viewport();
+	void set_viewport(int, int);
 };
 
 } /* namespace enl */

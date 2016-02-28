@@ -13,6 +13,8 @@
 #include <vector>
 
 #include "Polygon3d.cpp"
+#include "Viewport.cpp"
+#include "Transformation.cpp"
 
 #define DIMENSIONS 3
 
@@ -85,6 +87,7 @@ int main()
 	enl::Polygon3d::vertex v;
 	enl::Polygon3d::face f;
 	int viewport_width=0, viewport_length=0;
+	enl::Viewport vwp;
 	//char c;
 
 	try
@@ -163,6 +166,8 @@ int main()
 				cin >> viewport_length;
 				cout<<"So you want a viewport of "<<viewport_width<<"X"<<viewport_length<<endl;
 			}
+
+			vwp.set_viewport(viewport_width, viewport_length);
 
 			cout<<"end.\n";
 

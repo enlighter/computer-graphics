@@ -10,8 +10,11 @@
 #include <regex>
 #include <fstream> //file handling
 #include <sstream> //for reading things word by word
+#include <vector>
 
 #include "Polygon3d.cpp"
+
+#define DIMENSIONS 3
 
 using namespace std;
 
@@ -76,8 +79,10 @@ void process_filename(string name, ifstream *data)
 int main()
 {
 	string filename, line, word;
+	vector<string> line_stubs;
 	ifstream obj_file;
 	enl::Polygon3d object;
+	enl::Polygon3d::vertex v;
 	//char c;
 
 	try
@@ -90,24 +95,46 @@ int main()
 			{
 				while( getline(obj_file,line) )//!obj_file.eof())
 				{
-					//obj_file.get(c);
+					//DEBUG
 					cout<<line<<endl;
 
+					//process the line
 					istringstream iss(line);
 					while( iss >> word)
 					{
-						cout<<word<<endl;
+						//DEBUG
+						//cout<<word;
+
+						line_stubs.push_back(word);
 					}
 
-					//process the line
-					if(line[0] == 'v')
-						//this line in obj file corresponds to a vertex
+					if(line_stubs[0].compare("v") == 0)
+					//this line in obj file corresponds to a vertex
 					{
+						//DEBUG
+						//cout<<"vertex\n";
 
+						v.x = stoi(line_stubs[DIMENSIONS - 2]);
+						v.y = stoi(line_stubs[DIMENSIONS - 1]);
+						v.z = stoi(line_stubs[DIMENSIONS - 0]);
+
+						//DEBUG
+						cout<<v.x<<","<<v.y<<","<<v.z<<endl;
+
+						object.vertices.push_back(v);
 					}
-					else if(line[0] == 'f')
+					else if(line_stubs[0].compare("f") == 0)
+					//this line in obj file corresponds to a vertex
+					{
+						//DEBUG
 						cout<<"face\n";
+					}
+
+					line_stubs.clear(); //empty the line_stubs for next iteration
 				}
+
+				//DEBUG
+				object.print_vertices();
 			}
 			else
 			{

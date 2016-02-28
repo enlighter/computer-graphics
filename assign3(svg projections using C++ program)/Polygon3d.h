@@ -29,6 +29,7 @@ public:
 	//no of edges here can be 3 or 4
 	virtual ~Polygon3d();
 	void make_triangle();
+	void print_vertices();
 
 	std::vector<vertex> vertices;
 };

@@ -21,6 +21,12 @@ Polygon3d::~Polygon3d() {
 	// TODO Auto-generated destructor stub
 }
 
-
+void Polygon3d::print_vertices()
+{
+	for(auto it = this->vertices.begin(); it != this->vertices.end(); ++it)
+	{
+		std::cout<<"x="<<it->x<<",y="<<it->y<<",z="<<it->z<<std::endl;
+	}
+}
 
 } /* namespace enl */

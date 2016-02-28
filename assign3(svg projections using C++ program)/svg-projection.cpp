@@ -83,6 +83,7 @@ int main()
 	ifstream obj_file;
 	enl::Polygon3d object;
 	enl::Polygon3d::vertex v;
+	enl::Polygon3d::face f;
 	//char c;
 
 	try
@@ -128,13 +129,23 @@ int main()
 					{
 						//DEBUG
 						cout<<"face\n";
+
+						for(auto it = line_stubs.begin()+1; it != line_stubs.end(); ++it)
+						//line_stubs.begin() here points to 'f', so we start reading from the next ones
+						{
+							f.vertex_order.push_back( stoi(*it) );
+						}
+
+						object.faces.push_back(f);
 					}
 
+					f.vertex_order.clear();
 					line_stubs.clear(); //empty the line_stubs for next iteration
 				}
 
 				//DEBUG
 				object.print_vertices();
+				object.print_faces();
 			}
 			else
 			{

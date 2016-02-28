@@ -25,7 +25,7 @@ public:
 		//overload < operator for it to be sorted along x ascending using std::sort
 		bool operator<(const vertex &rhs) const { return x < rhs.x; }
 	};
-	Polygon3d(int);
+	Polygon3d();
 	//no of edges here can be 3 or 4
 	virtual ~Polygon3d();
 	void make_triangle();

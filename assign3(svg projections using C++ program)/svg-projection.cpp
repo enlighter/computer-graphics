@@ -9,6 +9,7 @@
 #include <string>
 #include <regex>
 #include <fstream> //file handling
+#include <sstream> //for reading things word by word
 
 #include "Polygon3d.cpp"
 
@@ -74,9 +75,10 @@ void process_filename(string name, ifstream *data)
 
 int main()
 {
-	string filename, line;
+	string filename, line, word;
 	ifstream obj_file;
-	char c;
+	enl::Polygon3d object;
+	//char c;
 
 	try
 		{
@@ -86,10 +88,25 @@ int main()
 
 			if(obj_file.is_open())
 			{
-				while(obj_file.get(c))//!obj_file.eof())
+				while( getline(obj_file,line) )//!obj_file.eof())
 				{
 					//obj_file.get(c);
-					cout<<c;
+					cout<<line<<endl;
+
+					istringstream iss(line);
+					while( iss >> word)
+					{
+						cout<<word<<endl;
+					}
+
+					//process the line
+					if(line[0] == 'v')
+						//this line in obj file corresponds to a vertex
+					{
+
+					}
+					else if(line[0] == 'f')
+						cout<<"face\n";
 				}
 			}
 			else

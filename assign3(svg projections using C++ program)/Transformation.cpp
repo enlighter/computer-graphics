@@ -35,4 +35,18 @@ void Transformation::set_translation(int tx, int ty, int tz)
 	this->translation[2][3] = tz;
 }
 
+void Transformation::set_scaling(int sx, int sy, int sz)
+{
+	std::fill(this->scaling.begin(), this->scaling.end(), 0);
+	this->scaling[0][0] = sx;
+	this->scaling[1][1] = sy;
+	this->scaling[2][2] = sz;
+	this->scaling[3][3] = 1;
+}
+
+void Transformation::set_zoom(int zoom)
+{
+	this->set_scaling(zoom, zoom, zoom);
+}
+
 } /* namespace enl */

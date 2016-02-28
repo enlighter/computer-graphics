@@ -16,9 +16,9 @@ class Transformation {
 public:
 	std::vector<std::vector<int>> translation;
 	std::vector<std::vector<int>> scaling;
-	std::vector<std::vector<int>> rotationx;
-	std::vector<std::vector<int>> rotationy;
-	std::vector<std::vector<int>> rotationz;
+	std::vector<std::vector<double>> rotationx;
+	std::vector<std::vector<double>> rotationy;
+	std::vector<std::vector<double>> rotationz;
 
 	Transformation();
 	virtual ~Transformation();

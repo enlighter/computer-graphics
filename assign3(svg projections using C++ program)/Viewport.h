@@ -15,9 +15,11 @@ private:
 	const int padding;
 	int width, length;
 	int start_x, start_y; //lies on X-Y plane
-	class imageplane : public Viewport
+	class imageplane
 	{
-
+	public:
+		int width, length;
+		int start_x, start_y;
 	} imp;
 public:
 	Viewport();

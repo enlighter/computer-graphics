@@ -84,12 +84,14 @@ int main()
 	enl::Polygon3d object;
 	enl::Polygon3d::vertex v;
 	enl::Polygon3d::face f;
+	int viewport_width=0, viewport_length=0;
 	//char c;
 
 	try
 		{
 			cout<<"Enter the filename {<name>.obj} for input obj file: ";
 			getline(cin, filename);
+
 			process_filename(filename, &obj_file);
 
 			if(obj_file.is_open())
@@ -153,12 +155,14 @@ int main()
 				return 0;
 			}
 
-			/*for(auto i=0; i<3; i++)
+			while( viewport_length<300 || viewport_length>1000 || viewport_width<300 || viewport_width>1000)
 			{
-				cout<<"Enter vertex no. "<<i+1<<" coordinates in the format (x,y,z): ";
-				//getline(cin, points[i]);
+				cout<<"Enter the width of the viewport (range 300 to 1000) :";
+				cin >> viewport_width;
+				cout<<"Enter the length of the viewport (range 300 to 1000) :";
+				cin >> viewport_length;
+				cout<<"So you want a viewport of "<<viewport_width<<"X"<<viewport_length<<endl;
 			}
-			*/
 
 			cout<<"end.\n";
 

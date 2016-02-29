@@ -88,6 +88,10 @@ int main()
 	enl::Polygon3d::face f;
 	int viewport_width=0, viewport_length=0;
 	enl::Viewport vwp;
+	int rotation=0;
+	short rotation_choice=0, rotation_count=0;
+	char proceed;
+	enl::Transformation transform;
 	//char c;
 
 	try
@@ -168,6 +172,53 @@ int main()
 			}
 
 			vwp.set_viewport(viewport_width, viewport_length);
+
+			//ask for rotations
+			while(true)
+			{
+				cout<<"Current rotation count : "<<rotation_count<<". Do you want to set another rotation (y/n) : ";
+				cin >> proceed;
+
+				if(proceed == 'y')
+				{
+					cout<<"Along which axis do you want to rotate the object?\n";
+					cout<<"Press '1' for X-axis\nPress '2' for X-axis\nPress '3' for X-axis\n:";
+					cin >> rotation_choice;
+					cout<<"Enter how much do you want to rotate the object? :";
+					cin >> rotation;
+
+					//DEBUG
+					cout<<"rotation of "<<rotation<<" degrees about "<<rotation_choice<<" axis.\n";
+
+					switch(rotation_choice)
+					{
+					case 1:
+					{
+						transform.set_x_rotation(rotation);
+						rotation_count++;
+						break;
+					}
+					case 2:
+					{
+						transform.set_y_rotation(rotation);
+						rotation_count++;
+						break;
+					}
+					case 3:
+					{
+						transform.set_z_rotation(rotation);
+						rotation_count++;
+						break;
+					}
+					default:
+						cout<<"That's not a valid choice.\n";
+					}
+				}
+				else
+				{
+					break;
+				}
+			}
 
 			cout<<"end.\n";
 

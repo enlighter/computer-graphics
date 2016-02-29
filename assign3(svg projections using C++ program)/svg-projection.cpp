@@ -124,12 +124,13 @@ int main()
 						//DEBUG
 						//cout<<"vertex\n";
 
-						v.x = stoi(line_stubs[DIMENSIONS - 2]);
-						v.y = stoi(line_stubs[DIMENSIONS - 1]);
-						v.z = stoi(line_stubs[DIMENSIONS - 0]);
+						for(auto i=1; i<=DIMENSIONS; i++)
+						{
+							v.h_coord[i-1] = stoi(line_stubs[i]);
+						}
 
 						//DEBUG
-						cout<<v.x<<","<<v.y<<","<<v.z<<endl;
+						cout<<v.h_coord[0]<<","<<v.h_coord[1]<<","<<v.h_coord[2]<<","<<v.h_coord[3]<<endl;
 
 						object.vertices.push_back(v);
 					}

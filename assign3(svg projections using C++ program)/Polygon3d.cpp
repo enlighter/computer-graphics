@@ -9,6 +9,8 @@
 
 #include "Polygon3d.h"
 
+#define DIMENSIONS 3
+
 /* enl is my custom namespace */
 namespace enl {
 
@@ -21,11 +23,18 @@ Polygon3d::~Polygon3d() {
 	// TODO Auto-generated destructor stub
 }
 
+Polygon3d::vertex::vertex()
+{
+	this->h_coord = std::vector<int> (DIMENSIONS+1);
+	std::fill(this->h_coord.begin(), this->h_coord.end(), 0);
+	this->h_coord[DIMENSIONS] = 1;
+}
+
 void Polygon3d::print_vertices()
 {
 	for(auto it = this->vertices.begin(); it != this->vertices.end(); ++it)
 	{
-		std::cout<<"x="<<it->x<<",y="<<it->y<<",z="<<it->z<<std::endl;
+		std::cout<<"x="<<it->h_coord[0]<<",y="<<it->h_coord[1]<<",z="<<it->h_coord[2]<<std::endl;
 	}
 }
 

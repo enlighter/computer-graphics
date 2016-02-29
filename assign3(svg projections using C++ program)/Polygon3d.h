@@ -21,9 +21,8 @@ public:
 	class vertex
 	{
 	public:
-		int x,y,z;
-		//overload < operator for it to be sorted along x ascending using std::sort
-		bool operator<(const vertex &rhs) const { return x < rhs.x; }
+		std::vector<int> h_coord; //homogenous coord system 4x1 matrix {x,y,z,1}
+		vertex();
 	};
 	class face
 	{

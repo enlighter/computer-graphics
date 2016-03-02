@@ -151,6 +151,8 @@ int main()
 					line_stubs.clear(); //empty the line_stubs for next iteration
 				}
 
+				object.normalize();
+
 				//DEBUG
 				object.print_vertices();
 				object.print_faces();
@@ -194,18 +196,21 @@ int main()
 					case 1:
 					{
 						transform.set_x_rotation(rotation);
+						transform.apply_rotation( &object );
 						rotation_count++;
 						break;
 					}
 					case 2:
 					{
 						transform.set_y_rotation(rotation);
+						transform.apply_rotation( &object );
 						rotation_count++;
 						break;
 					}
 					case 3:
 					{
 						transform.set_z_rotation(rotation);
+						transform.apply_rotation( &object );
 						rotation_count++;
 						break;
 					}

@@ -30,7 +30,6 @@ private:
 	//std::vector<std::vector<double>> rotationy;
 	//std::vector<std::vector<double>> rotationz;
 
-	void apply_rotation(enl::Polygon3d *);
 	enl::Polygon3d::vertex multiply_matrix(std::vector<std::vector<double>>, enl::Polygon3d::vertex);
 
 
@@ -43,6 +42,7 @@ public:
 	void set_x_rotation(int);
 	void set_y_rotation(int);
 	void set_z_rotation(int);
+	void apply_rotation(enl::Polygon3d *);
 };
 
 } /* namespace enl */

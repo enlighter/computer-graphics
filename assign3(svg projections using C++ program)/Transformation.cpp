@@ -96,4 +96,43 @@ void Transformation::set_x_rotation(int thetax)
 	};
 }
 
+void Transformation::apply_rotation(enl::Polygon3d *object)
+{
+
+}
+
+enl::Polygon3d::vertex Transformation::multiply_matrix(std::vector<std::vector<double>> transform, enl::Polygon3d::vertex to_transform)
+//This method multiplies a 4x4 matrix with a 4x1 matrix returning a 4x1 matrix as a result
+{
+	//DEBUG
+	for(auto i = 0; i<(DIMENSIONS+1); i++)
+	{
+		for(auto j=0; j<(DIMENSIONS+1); j++)
+		{
+			std::cout<<transform[i][j]<<" ";
+		}
+		std::cout<<" | "<<to_transform.h_coord[i]<<std::endl;
+	}
+
+	enl::Polygon3d::vertex transformed;
+
+	for(auto i = 0; i<(DIMENSIONS+1); i++)
+	{
+		for(auto j=0; j<(DIMENSIONS+1); j++)
+		{
+			transformed.h_coord[i] = transform[i][j] * to_transform.h_coord[j];
+		}
+	}
+
+	//DEBUG
+	std::cout<<"After Transformation:\n";
+	for(auto i = 0; i<(DIMENSIONS+1); i++)
+	{
+		std::cout<<transformed.h_coord[i]<<" ";
+	}
+	std::cout<<std::endl;
+
+	return transformed;
+}
+
 } /* namespace enl */

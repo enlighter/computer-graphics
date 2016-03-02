@@ -10,16 +10,27 @@
 #ifndef TRANSFORMATION_H_
 #define TRANSFORMATION_H_
 
+/*
+#define TRANSLATION 1
+#define SCALING 1
+#define X 1
+#define TRANSLATION 1
+#define TRANSLATION 1
+*/
+
 namespace enl {
 
 class Transformation {
-public:
+private:
 	std::vector<std::vector<int>> translation;
 	std::vector<std::vector<int>> scaling;
-	std::vector<std::vector<double>> rotationx;
-	std::vector<std::vector<double>> rotationy;
-	std::vector<std::vector<double>> rotationz;
+	std::vector<std::vector<double>> rotation;
+	//std::vector<std::vector<double>> rotationy;
+	//std::vector<std::vector<double>> rotationz;
 
+	void apply_rotation(enl::Polygon3d *);
+
+public:
 	Transformation();
 	virtual ~Transformation();
 	void set_translation(int, int, int);

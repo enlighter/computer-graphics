@@ -22,10 +22,11 @@ Transformation::Transformation()
 	for ( auto i = 0 ; i < DIMENSIONS+1 ; i++ )
 		scaling[i].resize(DIMENSIONS+1);
 
-	rotationx = std::vector<std::vector<double> > (DIMENSIONS+1);
+	rotation = std::vector<std::vector<double> > (DIMENSIONS+1);
 	for ( auto i = 0 ; i < DIMENSIONS+1 ; i++ )
-		rotationx[i].resize(DIMENSIONS+1);
+		rotation[i].resize(DIMENSIONS+1);
 
+	/*
 	rotationy = std::vector<std::vector<double> > (DIMENSIONS+1);
 	for ( auto i = 0 ; i < DIMENSIONS+1 ; i++ )
 		rotationy[i].resize(DIMENSIONS+1);
@@ -33,6 +34,7 @@ Transformation::Transformation()
 	rotationz = std::vector<std::vector<double> > (DIMENSIONS+1);
 	for ( auto i = 0 ; i < DIMENSIONS+1 ; i++ )
 		rotationz[i].resize(DIMENSIONS+1);
+	*/
 }
 
 Transformation::~Transformation() {
@@ -69,7 +71,7 @@ void Transformation::set_zoom(int zoom)
 
 void Transformation::set_z_rotation(int thetaz)
 {
-	this->rotationz = { {cos(thetaz), -sin(thetaz), 0.0, 0.0},
+	this->rotation = { {cos(thetaz), -sin(thetaz), 0.0, 0.0},
 						{sin(thetaz), cos(thetaz), 0.0, 0.0},
 						{0.0, 0.0, 1.0, 0.0},
 						{0.0, 0.0, 0.0, 1.0}
@@ -78,7 +80,7 @@ void Transformation::set_z_rotation(int thetaz)
 
 void Transformation::set_y_rotation(int thetay)
 {
-	this->rotationy = { {cos(thetay), 0.0, sin(thetay), 0.0},
+	this->rotation = { {cos(thetay), 0.0, sin(thetay), 0.0},
 						{0.0, 1, 0.0, 0.0},
 						{-sin(thetay), 0.0, cos(thetay), 0.0},
 						{0.0, 0.0, 0.0, 1.0}
@@ -87,7 +89,7 @@ void Transformation::set_y_rotation(int thetay)
 
 void Transformation::set_x_rotation(int thetax)
 {
-	this->rotationx = { {1.0, 0.0, 0.0, 0.0},
+	this->rotation = { {1.0, 0.0, 0.0, 0.0},
 						{0.0, cos(thetax), -sin(thetax), 0.0},
 						{0.0, sin(thetax), cos(thetax), 0.0},
 						{0.0, 0.0, 0.0, 1.0}

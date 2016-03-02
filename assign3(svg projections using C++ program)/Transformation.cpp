@@ -98,7 +98,10 @@ void Transformation::set_x_rotation(int thetax)
 
 void Transformation::apply_rotation(enl::Polygon3d *object)
 {
-
+	for(auto it = object->vertices.begin(); it != object->vertices.end(); ++it)
+	{
+		*it = this->multiply_matrix( this->rotation, *it);
+	}
 }
 
 enl::Polygon3d::vertex Transformation::multiply_matrix(std::vector<std::vector<double>> transform, enl::Polygon3d::vertex to_transform)

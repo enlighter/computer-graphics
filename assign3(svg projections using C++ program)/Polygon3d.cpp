@@ -6,6 +6,7 @@
  */
 
 #include <iostream>
+#include <limits>
 
 #include "Polygon3d.h"
 
@@ -45,6 +46,35 @@ void Polygon3d::print_faces()
 			std::cout<<*i<<"->";
 		}
 		std::cout<<std::endl;
+	}
+}
+
+void Polygon3d::normalize()
+{
+	int maxz = std::numeric_limits<int>::min();
+
+	//find the max Z coord value among all vertices
+	for(auto it = this->vertices.begin(); it != this->vertices.end(); ++it)
+	{
+		if(it->h_coord[2] > maxz)
+		{
+			maxz = it->h_coord[2];
+		}
+	}
+
+	//DEBUG
+	std::cout<<"Mazimum Z value found : "<<maxz<<std::endl;
+	if(maxz > 0)
+	{
+		//subtract +ve maxz value from all Z coords
+		for(auto it = this->vertices.begin(); it != this->vertices.end(); ++it)
+		{
+			it->h_coord[2] = it->h_coord[2] - (maxz+1);
+		}
+
+		//DEBUG
+		std::cout<<"Normalized.\n";
+		this->print_vertices();
 	}
 }
 

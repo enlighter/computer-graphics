@@ -34,9 +34,13 @@ public:
 	Polygon3d();
 	//no of edges here can be 3 or 4
 	virtual ~Polygon3d();
-	void make_triangle();
+	//void make_triangle();
 	void print_vertices();
 	void print_faces();
+	/* check if any vertex in this object is in +ve Z, and if it does,
+	 * then make it so that all vertices of this object are in -ve Z
+	 */
+	void normalize();
 
 	std::vector<vertex> vertices;
 	std::vector<face> faces;

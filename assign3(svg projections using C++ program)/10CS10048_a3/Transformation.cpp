@@ -22,10 +22,11 @@ Transformation::Transformation()
 	for ( auto i = 0 ; i < DIMENSIONS+1 ; i++ )
 		scaling[i].resize(DIMENSIONS+1);
 
-	rotationx = std::vector<std::vector<double> > (DIMENSIONS+1);
+	rotation = std::vector<std::vector<double> > (DIMENSIONS+1);
 	for ( auto i = 0 ; i < DIMENSIONS+1 ; i++ )
-		rotationx[i].resize(DIMENSIONS+1);
+		rotation[i].resize(DIMENSIONS+1);
 
+	/*
 	rotationy = std::vector<std::vector<double> > (DIMENSIONS+1);
 	for ( auto i = 0 ; i < DIMENSIONS+1 ; i++ )
 		rotationy[i].resize(DIMENSIONS+1);
@@ -33,6 +34,7 @@ Transformation::Transformation()
 	rotationz = std::vector<std::vector<double> > (DIMENSIONS+1);
 	for ( auto i = 0 ; i < DIMENSIONS+1 ; i++ )
 		rotationz[i].resize(DIMENSIONS+1);
+	*/
 }
 
 Transformation::~Transformation() {
@@ -69,7 +71,7 @@ void Transformation::set_zoom(int zoom)
 
 void Transformation::set_z_rotation(int thetaz)
 {
-	this->rotationz = { {cos(thetaz), -sin(thetaz), 0.0, 0.0},
+	this->rotation = { {cos(thetaz), -sin(thetaz), 0.0, 0.0},
 						{sin(thetaz), cos(thetaz), 0.0, 0.0},
 						{0.0, 0.0, 1.0, 0.0},
 						{0.0, 0.0, 0.0, 1.0}
@@ -78,7 +80,7 @@ void Transformation::set_z_rotation(int thetaz)
 
 void Transformation::set_y_rotation(int thetay)
 {
-	this->rotationy = { {cos(thetay), 0.0, sin(thetay), 0.0},
+	this->rotation = { {cos(thetay), 0.0, sin(thetay), 0.0},
 						{0.0, 1, 0.0, 0.0},
 						{-sin(thetay), 0.0, cos(thetay), 0.0},
 						{0.0, 0.0, 0.0, 1.0}
@@ -87,11 +89,57 @@ void Transformation::set_y_rotation(int thetay)
 
 void Transformation::set_x_rotation(int thetax)
 {
-	this->rotationx = { {1.0, 0.0, 0.0, 0.0},
+	std::cout<<"Applying theta = "<<thetax<<std::endl;
+
+	thetax = thetax * PI / 180.0;
+
+	this->rotation = { {1.0, 0.0, 0.0, 0.0},
 						{0.0, cos(thetax), -sin(thetax), 0.0},
 						{0.0, sin(thetax), cos(thetax), 0.0},
 						{0.0, 0.0, 0.0, 1.0}
 	};
+}
+
+void Transformation::apply_rotation(enl::Polygon3d *object)
+{
+	for(auto it = object->vertices.begin(); it != object->vertices.end(); ++it)
+	{
+		*it = this->multiply_matrix( this->rotation, *it);
+	}
+}
+
+enl::Polygon3d::vertex Transformation::multiply_matrix(std::vector<std::vector<double>> transform, enl::Polygon3d::vertex to_transform)
+//This method multiplies a 4x4 matrix with a 4x1 matrix returning a 4x1 matrix as a result
+{
+	//DEBUG
+	for(auto i = 0; i<(DIMENSIONS+1); i++)
+	{
+		for(auto j=0; j<(DIMENSIONS+1); j++)
+		{
+			std::cout<<transform[i][j]<<" ";
+		}
+		std::cout<<" | "<<to_transform.h_coord[i]<<std::endl;
+	}
+
+	enl::Polygon3d::vertex transformed;
+
+	for(auto i = 0; i<(DIMENSIONS+1); i++)
+	{
+		for(auto j=0; j<(DIMENSIONS+1); j++)
+		{
+			transformed.h_coord[i] = transform[i][j] * to_transform.h_coord[j];
+		}
+	}
+
+	//DEBUG
+	std::cout<<"After Transformation:\n";
+	for(auto i = 0; i<(DIMENSIONS+1); i++)
+	{
+		std::cout<<transformed.h_coord[i]<<" ";
+	}
+	std::cout<<std::endl;
+
+	return transformed;
 }
 
 } /* namespace enl */

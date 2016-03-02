@@ -16,8 +16,6 @@
 #include "Viewport.cpp"
 #include "Transformation.cpp"
 
-#define DIMENSIONS 3
-
 using namespace std;
 
 void process_filename(string name, ifstream *data)
@@ -88,6 +86,10 @@ int main()
 	enl::Polygon3d::face f;
 	int viewport_width=0, viewport_length=0;
 	enl::Viewport vwp;
+	int rotation=0;
+	short rotation_choice=0, rotation_count=0;
+	char proceed;
+	enl::Transformation transform;
 	//char c;
 
 	try
@@ -120,12 +122,13 @@ int main()
 						//DEBUG
 						//cout<<"vertex\n";
 
-						v.x = stoi(line_stubs[DIMENSIONS - 2]);
-						v.y = stoi(line_stubs[DIMENSIONS - 1]);
-						v.z = stoi(line_stubs[DIMENSIONS - 0]);
+						for(auto i=1; i<=DIMENSIONS; i++)
+						{
+							v.h_coord[i-1] = stoi(line_stubs[i]);
+						}
 
 						//DEBUG
-						cout<<v.x<<","<<v.y<<","<<v.z<<endl;
+						cout<<v.h_coord[0]<<","<<v.h_coord[1]<<","<<v.h_coord[2]<<","<<v.h_coord[3]<<endl;
 
 						object.vertices.push_back(v);
 					}
@@ -148,6 +151,8 @@ int main()
 					line_stubs.clear(); //empty the line_stubs for next iteration
 				}
 
+				object.normalize();
+
 				//DEBUG
 				object.print_vertices();
 				object.print_faces();
@@ -168,6 +173,65 @@ int main()
 			}
 
 			vwp.set_viewport(viewport_width, viewport_length);
+
+			//ask for rotations
+			while(true)
+			{
+				cout<<"Current rotation count : "<<rotation_count<<". Do you want to set another rotation (y/n) : ";
+				cin >> proceed;
+
+				if(proceed == 'y')
+				{
+					cout<<"Along which axis do you want to rotate the object?\n";
+					cout<<"Press '1' for X-axis\nPress '2' for X-axis\nPress '3' for X-axis\n:";
+					cin >> rotation_choice;
+					cout<<"Enter how much do you want to rotate the object? :";
+					cin >> rotation;
+
+					//DEBUG
+					cout<<"rotation of "<<rotation<<" degrees about "<<rotation_choice<<" axis.\n";
+
+					switch(rotation_choice)
+					{
+					case 1:
+					{
+						transform.set_x_rotation(rotation);
+						transform.apply_rotation( &object );
+						rotation_count++;
+
+						//DEBUG
+						object.print_vertices();
+						break;
+					}
+					case 2:
+					{
+						transform.set_y_rotation(rotation);
+						transform.apply_rotation( &object );
+						rotation_count++;
+
+						//DEBUG
+						object.print_vertices();
+						break;
+					}
+					case 3:
+					{
+						transform.set_z_rotation(rotation);
+						transform.apply_rotation( &object );
+						rotation_count++;
+
+						//DEBUG
+						object.print_vertices();
+						break;
+					}
+					default:
+						cout<<"That's not a valid choice.\n";
+					}
+				}
+				else
+				{
+					break;
+				}
+			}
 
 			cout<<"end.\n";
 

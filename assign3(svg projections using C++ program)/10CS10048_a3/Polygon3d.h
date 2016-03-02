@@ -10,6 +10,8 @@
 #ifndef POLYGON3D_H_
 #define POLYGON3D_H_
 
+#define DIMENSIONS 3
+
 /* enl is my custom namespace */
 namespace enl {
 
@@ -21,9 +23,8 @@ public:
 	class vertex
 	{
 	public:
-		int x,y,z;
-		//overload < operator for it to be sorted along x ascending using std::sort
-		bool operator<(const vertex &rhs) const { return x < rhs.x; }
+		std::vector<int> h_coord; //homogenous coord system 4x1 matrix {x,y,z,1}
+		vertex();
 	};
 	class face
 	{
@@ -33,9 +34,13 @@ public:
 	Polygon3d();
 	//no of edges here can be 3 or 4
 	virtual ~Polygon3d();
-	void make_triangle();
+	//void make_triangle();
 	void print_vertices();
 	void print_faces();
+	/* check if any vertex in this object is in +ve Z, and if it does,
+	 * then make it so that all vertices of this object are in -ve Z
+	 */
+	void normalize();
 
 	std::vector<vertex> vertices;
 	std::vector<face> faces;

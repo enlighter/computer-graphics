@@ -198,6 +198,9 @@ int main()
 						transform.set_x_rotation(rotation);
 						transform.apply_rotation( &object );
 						rotation_count++;
+
+						//DEBUG
+						object.print_vertices();
 						break;
 					}
 					case 2:
@@ -205,6 +208,9 @@ int main()
 						transform.set_y_rotation(rotation);
 						transform.apply_rotation( &object );
 						rotation_count++;
+
+						//DEBUG
+						object.print_vertices();
 						break;
 					}
 					case 3:
@@ -212,6 +218,9 @@ int main()
 						transform.set_z_rotation(rotation);
 						transform.apply_rotation( &object );
 						rotation_count++;
+
+						//DEBUG
+						object.print_vertices();
 						break;
 					}
 					default:

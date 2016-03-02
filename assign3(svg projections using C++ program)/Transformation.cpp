@@ -89,6 +89,10 @@ void Transformation::set_y_rotation(int thetay)
 
 void Transformation::set_x_rotation(int thetax)
 {
+	std::cout<<"Applying theta = "<<thetax<<std::endl;
+
+	thetax = thetax * PI / 180.0;
+
 	this->rotation = { {1.0, 0.0, 0.0, 0.0},
 						{0.0, cos(thetax), -sin(thetax), 0.0},
 						{0.0, sin(thetax), cos(thetax), 0.0},

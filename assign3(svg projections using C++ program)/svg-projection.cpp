@@ -175,7 +175,7 @@ int main()
 			vwp.set_viewport(viewport_width, viewport_length);
 
 			//ask for rotations
-			while(true)
+			do
 			{
 				cout<<"Current rotation count : "<<rotation_count<<". Do you want to set another rotation (y/n) : ";
 				cin >> proceed;
@@ -197,6 +197,12 @@ int main()
 					{
 						transform.set_x_rotation(rotation);
 						transform.apply_rotation( &object );
+						/* a better system would be to create a trigger mechanism that
+						 * class object.normalization() method whenever the vertices values
+						 * are updated in the object type class. But it also shouldn't keep
+						 * calling normalization everytime any vertex within vertices is updated,
+						 * as that would lead to unnecessarily worse time complexity (exponential)
+						 */
 						rotation_count++;
 
 						//DEBUG
@@ -232,6 +238,7 @@ int main()
 					break;
 				}
 			}
+			while( !cin.fail() );
 
 			cout<<"end.\n";
 

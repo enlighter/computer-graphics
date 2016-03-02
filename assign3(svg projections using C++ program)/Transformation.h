@@ -12,7 +12,6 @@
 #ifndef TRANSFORMATION_H_
 #define TRANSFORMATION_H_
 
-#define PI 3.14159265
 
 /*
 #define TRANSLATION 1

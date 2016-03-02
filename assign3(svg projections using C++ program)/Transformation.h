@@ -7,6 +7,8 @@
 
 #include <vector>
 
+#include "Polygon3d.h"
+
 #ifndef TRANSFORMATION_H_
 #define TRANSFORMATION_H_
 
@@ -29,6 +31,8 @@ private:
 	//std::vector<std::vector<double>> rotationz;
 
 	void apply_rotation(enl::Polygon3d *);
+	enl::Polygon3d::vertex multiply_matrix(std::vector<std::vector<double>>, enl::Polygon3d::vertex);
+
 
 public:
 	Transformation();

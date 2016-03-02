@@ -10,6 +10,8 @@
 #ifndef POLYGON3D_H_
 #define POLYGON3D_H_
 
+#define DIMENSIONS 3
+
 /* enl is my custom namespace */
 namespace enl {
 

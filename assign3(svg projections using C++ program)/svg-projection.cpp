@@ -16,8 +16,6 @@
 #include "Viewport.cpp"
 #include "Transformation.cpp"
 
-#define DIMENSIONS 3
-
 using namespace std;
 
 void process_filename(string name, ifstream *data)

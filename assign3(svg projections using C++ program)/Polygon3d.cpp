@@ -9,8 +9,6 @@
 
 #include "Polygon3d.h"
 
-#define DIMENSIONS 3
-
 /* enl is my custom namespace */
 namespace enl {
 

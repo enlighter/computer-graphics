@@ -8,7 +8,7 @@
 
 #include "Transformation.h"
 
-#define DIMENSIONS 3
+#define PI 3.14159265
 
 namespace enl {
 
@@ -71,6 +71,14 @@ void Transformation::set_zoom(int zoom)
 
 void Transformation::set_z_rotation(int thetaz)
 {
+	double pi_angle = 0.0;
+
+	std::cout<<"Applying theta = "<<thetaz<<std::endl;
+
+	pi_angle = ((double)thetaz / 180.0) * PI;
+
+	std::cout<<"Converted to PI form : "<<thetaz<<std::endl;
+
 	this->rotation = { {cos(thetaz), -sin(thetaz), 0.0, 0.0},
 						{sin(thetaz), cos(thetaz), 0.0, 0.0},
 						{0.0, 0.0, 1.0, 0.0},
@@ -80,22 +88,34 @@ void Transformation::set_z_rotation(int thetaz)
 
 void Transformation::set_y_rotation(int thetay)
 {
-	this->rotation = { {cos(thetay), 0.0, sin(thetay), 0.0},
+	double pi_angle = 0.0;
+
+	std::cout<<"Applying theta = "<<thetay<<std::endl;
+
+	pi_angle = ((double)thetay / 180.0) * PI;
+
+	std::cout<<"Converted to PI form : "<<pi_angle<<std::endl;
+
+	this->rotation = { {cos(pi_angle), 0.0, sin(pi_angle), 0.0},
 						{0.0, 1, 0.0, 0.0},
-						{-sin(thetay), 0.0, cos(thetay), 0.0},
+						{-sin(pi_angle), 0.0, cos(pi_angle), 0.0},
 						{0.0, 0.0, 0.0, 1.0}
 	};
 }
 
 void Transformation::set_x_rotation(int thetax)
 {
+	double pi_angle = 0.0;
+
 	std::cout<<"Applying theta = "<<thetax<<std::endl;
 
-	thetax = thetax * PI / 180.0;
+	pi_angle = ((double)thetax / 180.0) * PI;
+
+	std::cout<<"Converted to PI form : "<<pi_angle<<std::endl;
 
 	this->rotation = { {1.0, 0.0, 0.0, 0.0},
-						{0.0, cos(thetax), -sin(thetax), 0.0},
-						{0.0, sin(thetax), cos(thetax), 0.0},
+						{0.0, cos(pi_angle), -sin(pi_angle), 0.0},
+						{0.0, sin(pi_angle), cos(pi_angle), 0.0},
 						{0.0, 0.0, 0.0, 1.0}
 	};
 }
@@ -127,7 +147,7 @@ enl::Polygon3d::vertex Transformation::multiply_matrix(std::vector<std::vector<d
 	{
 		for(auto j=0; j<(DIMENSIONS+1); j++)
 		{
-			transformed.h_coord[i] = transform[i][j] * to_transform.h_coord[j];
+			transformed.h_coord[i] += transform[i][j] * to_transform.h_coord[j];
 		}
 	}
 

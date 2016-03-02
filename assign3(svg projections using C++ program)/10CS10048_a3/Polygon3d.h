@@ -23,7 +23,7 @@ public:
 	class vertex
 	{
 	public:
-		std::vector<int> h_coord; //homogenous coord system 4x1 matrix {x,y,z,1}
+		std::vector<float> h_coord; //homogenous coord system 4x1 matrix {x,y,z,1}
 		vertex();
 	};
 	class face

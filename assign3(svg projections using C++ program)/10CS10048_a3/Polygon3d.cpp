@@ -24,7 +24,7 @@ Polygon3d::~Polygon3d() {
 
 Polygon3d::vertex::vertex()
 {
-	this->h_coord = std::vector<int> (DIMENSIONS+1);
+	this->h_coord = std::vector<float> (DIMENSIONS+1);
 	std::fill(this->h_coord.begin(), this->h_coord.end(), 0);
 	this->h_coord[DIMENSIONS] = 1;
 }
@@ -51,7 +51,7 @@ void Polygon3d::print_faces()
 
 void Polygon3d::normalize()
 {
-	int maxz = std::numeric_limits<int>::min();
+	float maxz = std::numeric_limits<float>::min();
 
 	//find the max Z coord value among all vertices
 	for(auto it = this->vertices.begin(); it != this->vertices.end(); ++it)
@@ -64,12 +64,12 @@ void Polygon3d::normalize()
 
 	//DEBUG
 	std::cout<<"Mazimum Z value found : "<<maxz<<std::endl;
-	if(maxz > 0)
+	if(maxz > 0.0)
 	{
 		//subtract +ve maxz value from all Z coords
 		for(auto it = this->vertices.begin(); it != this->vertices.end(); ++it)
 		{
-			it->h_coord[2] = it->h_coord[2] - (maxz+1);
+			it->h_coord[2] = it->h_coord[2] - (maxz+1.0);
 		}
 
 		//DEBUG

@@ -93,6 +93,8 @@ void Transformation::set_x_rotation(int thetax)
 
 	thetax = thetax * PI / 180.0;
 
+	std::cout<<"Converted to PI form : "<<thetax<<std::endl;
+
 	this->rotation = { {1.0, 0.0, 0.0, 0.0},
 						{0.0, cos(thetax), -sin(thetax), 0.0},
 						{0.0, sin(thetax), cos(thetax), 0.0},

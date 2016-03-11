@@ -4,6 +4,7 @@
  *  Created on: 11-Mar-2016
  *      Author: enlighter
  */
+#include <vector>
 
 #ifndef MAXIMAL_COVEX_PATCHING_OBJECT3D_H_
 #define MAXIMAL_COVEX_PATCHING_OBJECT3D_H_
@@ -18,7 +19,7 @@ public:
 	class vertex
 	{
 	public:
-		std::vector<float> h_coord; //homogenous coord system 4x1 matrix {x,y,z,1}
+		std::vector<float> coord; //coord system 3x1 matrix {x,y,z}
 		vertex();
 	};
 

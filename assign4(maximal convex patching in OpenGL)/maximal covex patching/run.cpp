@@ -11,6 +11,9 @@
 #include <fstream> //file handling
 #include <sstream> //for reading things word by word
 #include <vector>
+/* inlude the headers for OpenGL development */
+#include <GL/freeglut.h>
+#include <GL/gl.h>
 
 using namespace std;
 
@@ -101,18 +104,57 @@ int main()
 
 					line_stubs.push_back(word);
 				}
+
+				if(line_stubs[0].compare("v") == 0)
+				//this line in obj file corresponds to a vertex
+				{
+					//DEBUG
+					cout<<"vertex\n";
+
+					//check that the vertex is 3 Dimensional
+					if(line_stubs.size() != 4)
+					{
+						//this vertex is not 3 Dimensional
+						throw "Vertex encountered that is not 3 Dimensional.\nThis program only works on 3 Dimensional Objects!";
+					}
+
+					//vertex is 3 Dimensional
+				}
+				else if(line_stubs[0].compare("f") == 0)
+				//this line in obj file corresponds to a vertex
+				{
+					//DEBUG
+					cout<<"face\n";
+
+					/*  check that the face is a triangular object
+						as this code assumes that 3D objects to
+						process are triangulated
+					*/
+					if(line_stubs.size() != 4)
+					{
+						//this face is not triangular
+						throw "Non triangular face encountered.\nThis program only works on triangulated objects!";
+					}
+				}
+
+				line_stubs.clear(); //empty the line_stubs for next iteration
 			}
+		}
+		else
+		{
+			cout<<"Couldn't open the file.\n";
+			return 0;
 		}
 	}
 	catch(const char* msg)
-			{
-				cerr<<msg<<endl;
-				return 0;
-			}
-			catch(exception &e)
-			{
-				cerr<<e.what()<<endl;
-			}
+	{
+		cerr<<msg<<endl;
+		return 0;
+	}
+	catch(exception &e)
+	{
+		cerr<<e.what()<<endl;
+	}
 
 	return 1;
 }

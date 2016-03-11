@@ -31,3 +31,5 @@
 .project
 .cproject
 .settings
+RemoteSystemsTempFiles
+.metadata

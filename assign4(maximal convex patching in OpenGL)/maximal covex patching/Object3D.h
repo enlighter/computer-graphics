@@ -27,6 +27,7 @@ public:
 	{
 	public:
 		std::vector<int> vertex_order;
+		face();
 	};
 
 	Object3D();

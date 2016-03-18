@@ -84,6 +84,7 @@ int main()
 	ifstream obj_file;
 	enl::Object3D object;
 	enl::Object3D::vertex vertex;
+	enl::Object3D::face face;
 
 	try
 	{
@@ -116,14 +117,14 @@ int main()
 					cout<<"vertex\n";
 
 					//check that the vertex is 3 Dimensional
-					if(line_stubs.size() != 4)
+					if(line_stubs.size() != DIMENSIONS + 1)
 					{
 						//this vertex is not 3 Dimensional
 						throw "Vertex encountered that is not 3 Dimensional.\nThis program only works on 3 Dimensional Objects!";
 					}
 
 					//vertex is 3 Dimensional
-					for(auto i=0; i<=2; i++)
+					for(auto i=0; i<DIMENSIONS; i++)
 					{
 						vertex.coord[i] = stof( line_stubs[i+1] );
 					}
@@ -149,11 +150,28 @@ int main()
 						as this code assumes that 3D objects to
 						process are triangulated
 					*/
-					if(line_stubs.size() != 4)
+					if(line_stubs.size() != DIMENSIONS + 1)
 					{
 						//this face is not triangular
 						throw "Non triangular face encountered.\nThis program only works on triangulated objects!";
 					}
+
+					//face is a triangular object
+					for(auto i=0; i<DIMENSIONS; i++)
+					{
+						face.vertex_order[i] = stoi( line_stubs[i+1] );
+					}
+
+					//DEBUG
+					/*cout<<"Inserted vertex : ";
+					for(auto i=0; i<=2; i++)
+					{
+						cout<<vertex.coord[i]<<" ,";
+					}
+					cout<<endl;
+					*/
+
+					object.faces.push_back(face);
 				}
 
 				line_stubs.clear(); //empty the line_stubs for next iteration
@@ -162,6 +180,8 @@ int main()
 			//DEBUG
 			cout<<"Stored vertices : \n";
 			object.print_vertices();
+			cout<<"Stored faces : \n";
+			object.print_faces();
 		}
 		else
 		{

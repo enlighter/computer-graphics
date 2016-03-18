@@ -26,6 +26,12 @@ Object3D::vertex::vertex()
 	std::fill(this->coord.begin(), this->coord.end(), 0);
 }
 
+Object3D::face::face()
+{
+	this->vertex_order = std::vector<int> (DIMENSIONS);
+	std::fill(this->vertex_order.begin(), this->vertex_order.end(), 0);
+}
+
 void Object3D::print_vertices()
 {
 	for(auto it = this->vertices.begin(); it != this->vertices.end(); ++it)

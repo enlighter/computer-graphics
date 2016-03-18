@@ -129,12 +129,15 @@ int main()
 					}
 
 					//DEBUG
-					cout<<"Inserted vertex : ";
+					/*cout<<"Inserted vertex : ";
 					for(auto i=0; i<=2; i++)
 					{
 						cout<<vertex.coord[i]<<" ,";
 					}
 					cout<<endl;
+					*/
+
+					object.vertices.push_back(vertex);
 				}
 				else if(line_stubs[0].compare("f") == 0)
 				//this line in obj file corresponds to a vertex
@@ -155,6 +158,10 @@ int main()
 
 				line_stubs.clear(); //empty the line_stubs for next iteration
 			}
+
+			//DEBUG
+			cout<<"Stored vertices : \n";
+			object.print_vertices();
 		}
 		else
 		{

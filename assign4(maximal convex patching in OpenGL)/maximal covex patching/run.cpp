@@ -13,7 +13,9 @@
 #include <vector>
 /* inlude the headers for OpenGL development */
 #include <GL/freeglut.h>
-#include <GL/gl.h>
+#include <GL/glut.h>
+
+#include "Object3D.cpp"
 
 using namespace std;
 
@@ -80,6 +82,8 @@ int main()
 	string filename, line, word;
 	vector<string> line_stubs;
 	ifstream obj_file;
+	enl::Object3D object;
+	enl::Object3D::vertex vertex;
 
 	try
 	{
@@ -119,6 +123,18 @@ int main()
 					}
 
 					//vertex is 3 Dimensional
+					for(auto i=0; i<=2; i++)
+					{
+						vertex.coord[i] = stof( line_stubs[i+1] );
+					}
+
+					//DEBUG
+					cout<<"Inserted vertex : ";
+					for(auto i=0; i<=2; i++)
+					{
+						cout<<vertex.coord[i]<<" ,";
+					}
+					cout<<endl;
 				}
 				else if(line_stubs[0].compare("f") == 0)
 				//this line in obj file corresponds to a vertex

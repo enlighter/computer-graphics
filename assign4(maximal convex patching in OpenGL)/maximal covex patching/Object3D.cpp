@@ -22,9 +22,8 @@ Object3D::~Object3D() {
 
 Object3D::vertex::vertex()
 {
-	this->coord = std::vector<float> (DIMENSIONS+1);
+	this->coord = std::vector<float> (DIMENSIONS);
 	std::fill(this->coord.begin(), this->coord.end(), 0);
-	this->coord[DIMENSIONS] = 1;
 }
 
 void Object3D::print_vertices()

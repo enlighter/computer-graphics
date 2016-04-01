@@ -35,6 +35,10 @@ public:
 
 	void print_vertices();
 	void print_faces();
+	//within each face sort the vertex no.s
+	void sort_within_faces();
+	//sort all faces for simplicity of generating connectivity tree
+	void sort_all_faces();
 
 	std::vector<vertex> vertices;
 	std::vector<face> faces;

@@ -185,7 +185,7 @@ int main()
 			cout<<"Stored faces : \n";
 			object.print_faces();
 
-			glutInit(&argc, argv);
+			//glutInit(&argc, argv);
 		}
 		else
 		{

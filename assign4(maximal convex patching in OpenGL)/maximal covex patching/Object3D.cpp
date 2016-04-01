@@ -52,4 +52,13 @@ void Object3D::print_faces()
 	}
 }
 
+void Object3D::sort_within_faces()
+{
+	for(auto it = this->faces.begin(); it != this->faces.end(); ++it)
+	{
+		//we need to sort it in asc order
+		std::sort( it->vertex_order.begin(), it->vertex_order.end() );
+	}
+}
+
 } /* namespace enl */

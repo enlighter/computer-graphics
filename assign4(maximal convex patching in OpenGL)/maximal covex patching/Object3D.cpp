@@ -52,6 +52,7 @@ void Object3D::print_faces()
 	}
 }
 
+//within each face sort the vertex no.s
 void Object3D::sort_within_faces()
 {
 	for(auto it = this->faces.begin(); it != this->faces.end(); ++it)
@@ -59,6 +60,12 @@ void Object3D::sort_within_faces()
 		//we need to sort it in asc order
 		std::sort( it->vertex_order.begin(), it->vertex_order.end() );
 	}
+}
+
+//sort all faces for simplicity of generating connectivity tree
+void Object3D::sort_all_faces()
+{
+
 }
 
 } /* namespace enl */

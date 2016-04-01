@@ -179,6 +179,8 @@ int main()
 				line_stubs.clear(); //empty the line_stubs for next iteration
 			}
 
+			object.sort_within_faces();
+
 			//DEBUG
 			cout<<"Stored vertices : \n";
 			object.print_vertices();

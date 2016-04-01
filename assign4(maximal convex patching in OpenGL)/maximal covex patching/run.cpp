@@ -85,6 +85,8 @@ int main()
 	enl::Object3D object;
 	enl::Object3D::vertex vertex;
 	enl::Object3D::face face;
+	int argc = 1;
+	char *argv[1] = {(char*)"Something"};
 
 	try
 	{
@@ -182,6 +184,8 @@ int main()
 			object.print_vertices();
 			cout<<"Stored faces : \n";
 			object.print_faces();
+
+			glutInit(&argc, argv);
 		}
 		else
 		{

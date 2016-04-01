@@ -12,5 +12,5 @@ else
 	echo "You have compatible g++ version to compile this program"
 fi
 
-g++ -std=c++11 run.cpp -o run.out
+g++ -std=c++11 -lglut -lGLU run.cpp -o run.out
 echo "run.out created"

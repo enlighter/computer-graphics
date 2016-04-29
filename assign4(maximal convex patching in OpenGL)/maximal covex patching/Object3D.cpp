@@ -63,9 +63,10 @@ void Object3D::sort_within_faces()
 }
 
 //sort all faces for simplicity of generating connectivity tree
-void Object3D::sort_all_faces()
+//for now just keep this
+/*void Object3D::sort_all_faces()
 {
 
-}
+}*/
 
 } /* namespace enl */

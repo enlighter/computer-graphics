@@ -12,12 +12,21 @@
 #include <sstream> //for reading things word by word
 #include <vector>
 /* inlude the headers for OpenGL development */
+#include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <GL/glut.h>
 
 #include "Object3D.cpp"
 
 using namespace std;
+
+/* OPenGl based func defs
+ *
+ */
+static int make_resources(void)
+{
+    return 1;
+}
 
 void process_filename(string name, ifstream *data)
 {
@@ -187,7 +196,26 @@ int main()
 			cout<<"Stored faces : \n";
 			object.print_faces();
 
-			//glutInit(&argc, argv);
+			/* opengl render
+			 *
+			 */
+			glutInit(&argc, argv);
+			glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
+			glutInitWindowSize(400, 300);
+			glutCreateWindow("Hello World");
+			//glutDisplayFunc(&render);
+			//glutIdleFunc(&update_fade_factor);
+		    glewInit();
+		    if (!GLEW_VERSION_2_0) {
+		        cerr<<"OpenGL 2.0 not available\n";
+		        return 1;
+		    }
+		    if (!make_resources()) {
+		        cerr<<"Failed to load resources\n";
+		        return 1;
+		    }
+
+		    glutMainLoop();
 		}
 		else
 		{
